@@ -7,6 +7,16 @@ export interface Card {
   message: string
   mediaType: MediaType
   mediaUrl?: string
+  backgroundColor?: string
+  textColor?: string
+  titleColor?: string
+  messageColor?: string
+  fontFamily?: string
+  titleAlign?: 'left' | 'center' | 'right'
+  messageAlign?: 'left' | 'center' | 'right'
+  titleSize?: string // CSS size e.g. '2rem'
+  messageSize?: string // CSS size e.g. '1rem'
+  themePreset?: string
   unlockAt?: string // ISO string
   isLocked: boolean
   key?: string

@@ -23,7 +23,7 @@
       <div v-else>
         <div class="flex items-center justify-between mb-4">
           <div>
-            <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ card.title }}</h2>
+            <h2 class="text-xl font-semibold" :style="titleStyle">{{ card.title }}</h2>
             <p class="text-gray-500 dark:text-gray-400">To: {{ card.recipientName }}</p>
           </div>
           <div class="flex items-center gap-2">
@@ -36,8 +36,8 @@
           label="Unlock" @unlock="onUnlock" />
 
         <div v-else class="grid gap-4">
-          <MediaRenderer :media-type="card.mediaType" :media-url="card.mediaUrl" />
-          <p v-if="card.message" class="text-lg text-gray-900 dark:text-gray-100">{{ card.message }}</p>
+          <MediaRenderer :media-type="card.mediaType" :media-url="card.mediaUrl" :background-color="card.backgroundColor" />
+          <p v-if="card.message" class="text-lg" :style="messageStyle">{{ card.message }}</p>
 
           <div class="flex items-center justify-between">
             <UButton color="primary" :to="`/print-request/${card.id}`" icon="i-heroicons-truck"
@@ -72,6 +72,18 @@ const canOpenNow = computed(() => {
   const k = (route.query.k as string | undefined) || keyInput.value || undefined
   return canOpen(card.value, k)
 })
+
+const messageStyle = computed(() => ({
+  color: card.value?.messageColor || card.value?.textColor || undefined,
+  fontFamily: card.value?.fontFamily || undefined
+}))
+
+const titleStyle = computed(() => ({
+  color: card.value?.titleColor || card.value?.textColor || undefined,
+  fontFamily: card.value?.fontFamily || undefined,
+  textAlign: card.value?.titleAlign || undefined,
+  fontSize: card.value?.titleSize || undefined
+}))
 
 onMounted(() => {
   const id = route.params.id as string
