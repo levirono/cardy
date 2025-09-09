@@ -4,7 +4,7 @@
       <div class="flex items-start justify-between gap-3">
         <div>
           <div class="font-semibold truncate">{{ card.title }}</div>
-          <div class="text-sm text-gray-500">To: {{ card.recipientName }}</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">To: {{ card.recipientName }}</div>
         </div>
         <div class="flex items-center gap-2">
           <UBadge v-if="card.isLocked" color="neutral" variant="solid" label="Locked" />

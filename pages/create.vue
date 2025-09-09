@@ -10,32 +10,37 @@
       <form class="grid gap-4" @submit.prevent="onSubmit">
         <div class="grid gap-2 sm:grid-cols-2">
           <UFormGroup label="Title" required>
-            <UInput v-model="form.title" placeholder="e.g. Happy Birthday!" required />
+            <UInput v-model="form.title" placeholder="e.g. Happy Birthday!" required
+              class="border border-gray-400 rounded" />
           </UFormGroup>
           <UFormGroup label="Recipient name" required>
-            <UInput v-model="form.recipientName" placeholder="e.g. Alex" required />
+            <UInput v-model="form.recipientName" placeholder="e.g. Alex" required
+              class="border border-gray-400 rounded" />
           </UFormGroup>
         </div>
 
         <UFormGroup label="Message">
-          <UTextarea v-model="form.message" :rows="5" placeholder="Write something lovely..." />
+          <UTextarea v-model="form.message" :rows="5" placeholder="Write something lovely..."
+            class="border border-gray-400 rounded" />
         </UFormGroup>
 
         <div class="grid gap-2 sm:grid-cols-3">
           <UFormGroup label="Media type">
-            <USelect v-model="form.mediaType" :options="mediaOptions" option-attribute="label" value-attribute="value" />
+            <USelect v-model="form.mediaType" :options="mediaOptions" option-attribute="label" value-attribute="value"
+              class="border border-gray-400 rounded" />
           </UFormGroup>
           <UFormGroup label="Media URL" :help="mediaHelp">
-            <UInput v-model="form.mediaUrl" placeholder="https://..." />
+            <UInput v-model="form.mediaUrl" placeholder="https://..." class="border border-gray-400 rounded" />
           </UFormGroup>
           <UFormGroup label="Unlock at (optional)">
-            <UInput type="datetime-local" v-model="form.unlockAt" />
+            <UInput type="datetime-local" v-model="form.unlockAt" class="border border-gray-400 rounded" />
           </UFormGroup>
         </div>
 
         <div class="flex items-center gap-3">
           <USwitch v-model="form.isLocked" label="Require a key to open" />
-          <UInput v-if="form.isLocked" v-model="form.key" placeholder="Secret key" />
+          <UInput v-if="form.isLocked" v-model="form.key" placeholder="Secret key"
+            class="border border-gray-400 rounded" />
         </div>
 
         <div class="flex items-center justify-end gap-3 pt-2">
@@ -127,4 +132,4 @@ async function onSubmit() {
     saving.value = false
   }
 }
-</script> 
+</script>
