@@ -16,7 +16,6 @@
     </template>
   </div>
 </template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
 const props = defineProps<{ mediaType?: string; mediaUrl?: string; backgroundColor?: string }>()

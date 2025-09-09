@@ -23,8 +23,8 @@
         </div>
 
         <UFormGroup label="Message" :ui="{ label: 'text-indigo-700 dark:text-indigo-300' }">
-          <UTextarea v-model="form.message" :rows="5" placeholder="Write something lovely..."
-            class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-indigo-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+          <UTextarea v-model="form.message" :rows="10" placeholder="Write something lovely..."
+            class=" w-full border border-gray-400 rounded shadow focus:ring-2 focus:ring-indigo-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
         </UFormGroup>
 
         <div
