@@ -1,20 +1,25 @@
 <template>
-  <div class="overflow-hidden rounded-xl ring-1 ring-inset ring-gray-200 dark:ring-gray-800" :style="containerStyle">
-    <img v-if="mediaType === 'image' || mediaType === 'animation'" :src="mediaUrl" alt="media" class="w-full h-auto object-cover" />
-    <video v-else-if="mediaType === 'video'" :src="mediaUrl" controls class="w-full h-auto" />
-    <div v-else class="p-6 text-gray-500 dark:text-gray-400 text-center">No media</div>
+  <div class="w-full h-full flex items-center justify-center rounded-xl overflow-hidden border"
+    :class="isDark ? 'bg-gray-900 border-gray-700' : 'bg-white/80 border-gray-200'"
+    :style="{ background: isDark ? (backgroundColor || '#18181b') : (backgroundColor || '#fff') }">
+    <template v-if="mediaType === 'image' && mediaUrl">
+      <img :src="mediaUrl" alt="media" class="max-w-full max-h-full object-contain" />
+    </template>
+    <template v-else-if="mediaType === 'video' && mediaUrl">
+      <video :src="mediaUrl" controls class="max-w-full max-h-full object-contain" />
+    </template>
+    <template v-else-if="mediaType === 'animation' && mediaUrl">
+      <img :src="mediaUrl" alt="animation" class="max-w-full max-h-full object-contain" />
+    </template>
+    <template v-else>
+      <span :class="isDark ? 'text-gray-200' : 'text-gray-500'">No media selected</span>
+    </template>
   </div>
-  
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{ mediaType?: 'image' | 'video' | 'animation' | 'text', mediaUrl?: string, backgroundColor?: string }>(), {
-  mediaType: 'text',
-  mediaUrl: '',
-  backgroundColor: ''
-})
+import { computed } from 'vue'
+const props = defineProps<{ mediaType?: string; mediaUrl?: string; backgroundColor?: string }>()
 
-const containerStyle = computed(() => ({
-  backgroundColor: props.backgroundColor || 'transparent'
-}))
+const isDark = computed(() => document.documentElement.classList.contains('dark'))
 </script>
