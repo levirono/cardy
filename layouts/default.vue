@@ -50,13 +50,6 @@
 
 <script setup lang="ts">
 const app = useAppConfig() as any
-const colorMode = useColorMode()
-const isDark = computed(() => colorMode.value === 'dark')
-const nextMode = computed(() => isDark.value ? 'light' : 'dark')
-const iconTarget = computed(() => isDark.value ? 'i-heroicons-sun' : 'i-heroicons-moon')
-
-function toggleTheme() {
-  colorMode.preference = nextMode.value
-  colorMode.value = nextMode.value
-}
+import { useGlobalTheme } from '~/composables/useGlobalTheme'
+const { isDark, nextMode, iconTarget, toggleTheme } = useGlobalTheme()
 </script>

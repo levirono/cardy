@@ -48,4 +48,6 @@
 
 <script setup lang="ts">
 const app = useAppConfig() as any
+import { useGlobalTheme } from '~/composables/useGlobalTheme'
+useGlobalTheme() // This ensures the theme watcher runs on this page
 </script>
