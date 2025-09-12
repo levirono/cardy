@@ -1,54 +1,59 @@
 <template>
-  <section
-    class="py-8 grid gap-6 lg:grid-cols-2 bg-gradient-to-br from-rose-50 via-indigo-50 to-emerald-50 min-h-screen dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-    <UCard
-      class="shadow-xl rounded-2xl border-2 border-indigo-100 bg-white/80 backdrop-blur dark:bg-gray-900/90 dark:border-gray-700">
+  <section class="py-8 grid gap-6 lg:grid-cols-2 bg-bgclass=" py-8 grid gap-6 lg:grid-cols-2 min-h-screen
+    bg-gradient-to-br from-rose-50 via-indigo-50 to-emerald-50 dark:bg-gradient-to-br dark:from-gray-900
+    dark:via-gray-800>
+    <UCard class="shadow-xl rounded-2xl border-2 border-border backdrop-blur-xl transition-all duration-300
+    bg-gradient-to-br from-blue-200/50 via-purple-200/50 to-pink-200/50
+    dark:from-blue-900/60 dark:via-purple-900/60 dark:to-pink-900/60
+    relative overflow-hidden
+    before:content-[''] before:absolute before:inset-0
+    before:bg-gradient-to-r before:from-white/20 before:via-transparent before:to-white/20
+    dark:before:from-white/30 dark:via-transparent dark:to-white/30
+    before:blur-3xl before:animate-liquid-glass">
       <template #header>
         <div class="flex items-center justify-between">
-          <h2 class="text-lg font-semibold text-indigo-700 dark:text-indigo-300">Create a card</h2>
+          <h2 class="text-lg font-semibold text-text">Create a card</h2>
         </div>
       </template>
 
       <form class="grid gap-6" @submit.prevent="onSubmit">
-        <div
-          class="grid gap-4 sm:grid-cols-2 bg-gradient-to-r from-rose-100 via-indigo-100 to-emerald-100 p-4 rounded-xl dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-          <UFormGroup label="Title" required :ui="{ label: 'text-rose-700 dark:text-rose-300' }">
+        <div class="grid gap-4 sm:grid-cols-2 bg-bg-secondary/50 p-4 rounded-xl border border-border">
+          <UFormGroup label="Title" required :ui="{ label: 'text-text' }">
             <UInput v-model="form.title" placeholder="e.g. Happy Birthday!" required
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-rose-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
           </UFormGroup>
-          <UFormGroup label="Recipient name" required :ui="{ label: 'text-emerald-700 dark:text-emerald-300' }">
+          <UFormGroup label="Recipient name" required :ui="{ label: 'text-text' }">
             <UInput v-model="form.recipientName" placeholder="e.g. Alex" required
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-emerald-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
           </UFormGroup>
         </div>
 
-        <UFormGroup label="Message" :ui="{ label: 'text-indigo-700 dark:text-indigo-300' }">
+        <UFormGroup label="Message" :ui="{ label: 'text-text' }">
           <UTextarea v-model="form.message" :rows="10" placeholder="Write something lovely..."
-            class=" w-full border border-gray-400 rounded shadow focus:ring-2 focus:ring-indigo-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+            class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
         </UFormGroup>
 
-        <div
-          class="grid gap-4 sm:grid-cols-3 bg-gradient-to-r from-sky-50 via-cyan-50 to-amber-50 p-4 rounded-xl dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-          <UFormGroup label="Media type" :ui="{ label: 'text-sky-700 dark:text-sky-300' }">
+        <div class="grid gap-4 sm:grid-cols-3 bg-bg-secondary/50 p-4 rounded-xl border border-border">
+          <UFormGroup label="Media type" :ui="{ label: 'text-text' }">
             <USelect v-model="form.mediaType" :options="mediaOptions" option-attribute="label" value-attribute="value"
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-sky-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
           </UFormGroup>
-          <UFormGroup label="Media URL" :help="mediaHelp" :ui="{ label: 'text-cyan-700 dark:text-cyan-300' }">
+          <UFormGroup label="Media URL" :help="mediaHelp" :ui="{ label: 'text-text' }">
             <UInput v-model="form.mediaUrl" placeholder="https://..."
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-cyan-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
           </UFormGroup>
-          <UFormGroup label="Unlock at (optional)" :ui="{ label: 'text-amber-700 dark:text-amber-300' }">
+          <UFormGroup label="Unlock at (optional)" :ui="{ label: 'text-text' }">
             <UInput type="datetime-local" v-model="form.unlockAt"
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-amber-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
           </UFormGroup>
         </div>
 
-        <div
-          class="grid gap-4 sm:grid-cols-3 bg-gradient-to-r from-pink-50 via-pink-100 to-pink-200 p-4 rounded-xl dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800"
+        <div class="grid gap-4 sm:grid-cols-3 bg-bg-secondary/50 p-4 rounded-xl border border-border"
           v-if="form.mediaType === 'image' || form.mediaType === 'animation'">
           <UFormGroup label="Upload image (optional)" :help="'JPEG, PNG, GIF. Overrides Media URL when set.'"
-            :ui="{ label: 'text-pink-700 dark:text-pink-300' }">
-            <input type="file" accept="image/*" @change="onFileChange" class="block text-sm dark:text-gray-100" />
+            :ui="{ label: 'text-text' }">
+            <input type="file" accept="image/*" @change="onFileChange"
+              class="block p-3 text-sm text-text bg-blue-100/30 dark:bg-blue-900/40 rounded shadow" />
           </UFormGroup>
           <div class="sm:col-span-2 flex items-end gap-2">
             <UButton v-if="form.mediaUrl && isDataUrl(form.mediaUrl)" color="neutral" variant="soft"
@@ -56,103 +61,99 @@
           </div>
         </div>
 
-        <div
-          class="grid gap-4 sm:grid-cols-3 bg-gradient-to-r from-violet-50 via-violet-100 to-violet-200 p-4 rounded-xl dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-          <UFormGroup label="Style preset" :ui="{ label: 'text-violet-700 dark:text-violet-300' }">
+        <div class="grid gap-4 sm:grid-cols-3 bg-bg-secondary/50 p-4 rounded-xl border border-border">
+          <UFormGroup label="Style preset" :ui="{ label: 'text-text' }">
             <USelect v-model="form.themePreset" :options="presetOptions" option-attribute="label"
               value-attribute="value"
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-violet-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700"
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text"
               @change="applyPreset" />
           </UFormGroup>
-          <UFormGroup label="Background color" :ui="{ label: 'text-sky-700 dark:text-sky-300' }">
+          <UFormGroup label="Background color" :ui="{ label: 'text-text' }">
             <div class="flex items-center gap-2">
               <input type="color" v-model="form.backgroundColor"
-                class="h-12 w-20 rounded-lg border border-gray-400 shadow cursor-pointer transition-all duration-200 dark:border-gray-700" />
+                class="p-1 h-12 w-20 rounded-lg bg-blue-100/30 dark:bg-blue-900/40 shadow cursor-pointer transition-all duration-200" />
               <div class="flex flex-wrap gap-2">
                 <button v-for="c in bgSwatches" :key="c" type="button" :style="{ backgroundColor: c }"
-                  class="size-8 rounded-lg border-2 border-black/10 shadow hover:scale-110 hover:border-indigo-400 transition-all duration-200 dark:border-gray-700"
+                  class="size-8 rounded-lg bg-blue-100/30 dark:bg-blue-900/40 shadow hover:scale-110 hover:ring-2 hover:ring-primary transition-all duration-200"
                   @click="form.backgroundColor = c" aria-label="Pick bg color" />
               </div>
             </div>
           </UFormGroup>
-          <UFormGroup label="Body text color" :ui="{ label: 'text-amber-700 dark:text-amber-300' }">
+          <UFormGroup label="Body text color" :ui="{ label: 'text-text' }">
             <div class="flex items-center gap-2">
               <input type="color" v-model="form.textColor"
-                class="h-12 w-20 rounded-lg border border-gray-400 shadow cursor-pointer transition-all duration-200 dark:border-gray-700" />
+                class="p-1 h-12 w-20 rounded-lg bg-blue-100/30 dark:bg-blue-900/40 shadow cursor-pointer transition-all duration-200" />
               <div class="flex flex-wrap gap-2">
                 <button v-for="c in textSwatches" :key="c" type="button" :style="{ backgroundColor: c }"
-                  class="size-8 rounded-lg border-2 border-black/10 shadow hover:scale-110 hover:border-amber-400 transition-all duration-200 dark:border-gray-700"
+                  class="size-8 rounded-lg bg-blue-100/30 dark:bg-blue-900/40 shadow hover:scale-110 hover:ring-2 hover:ring-primary transition-all duration-200"
                   @click="form.textColor = c" aria-label="Pick text color" />
               </div>
             </div>
           </UFormGroup>
         </div>
 
-        <div
-          class="grid gap-4 sm:grid-cols-3 bg-gradient-to-r from-rose-50 via-rose-100 to-rose-200 p-4 rounded-xl dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-          <UFormGroup label="Title color" :ui="{ label: 'text-rose-700 dark:text-rose-300' }">
+        <div class="grid gap-4 sm:grid-cols-3 bg-bg-secondary/50 p-4 rounded-xl border border-border">
+          <UFormGroup label="Title color" :ui="{ label: 'text-text' }">
             <div class="flex items-center gap-2">
               <input type="color" v-model="form.titleColor"
-                class="h-12 w-20 rounded-lg border border-gray-400 shadow cursor-pointer transition-all duration-200 dark:border-gray-700" />
+                class="p-1 h-12 w-20 rounded-lg bg-blue-100/30 dark:bg-blue-900/40 shadow cursor-pointer transition-all duration-200" />
               <div class="flex flex-wrap gap-2">
                 <button v-for="c in titleSwatches" :key="c" type="button" :style="{ backgroundColor: c }"
-                  class="size-8 rounded-lg border-2 border-black/10 shadow hover:scale-110 hover:border-rose-400 transition-all duration-200 dark:border-gray-700"
+                  class="size-8 rounded-lg bg-blue-100/30 dark:bg-blue-900/40 shadow hover:scale-110 hover:ring-2 hover:ring-primary transition-all duration-200"
                   @click="form.titleColor = c" aria-label="Pick title color" />
               </div>
             </div>
           </UFormGroup>
-          <UFormGroup label="Message color" :ui="{ label: 'text-emerald-700 dark:text-emerald-300' }">
+          <UFormGroup label="Message color" :ui="{ label: 'text-text' }">
             <div class="flex items-center gap-2">
               <input type="color" v-model="form.messageColor"
-                class="h-12 w-20 rounded-lg border border-gray-400 shadow cursor-pointer transition-all duration-200 dark:border-gray-700" />
+                class="p-1 h-12 w-20 rounded-lg bg-blue-100/30 dark:bg-blue-900/40 shadow cursor-pointer transition-all duration-200" />
               <div class="flex flex-wrap gap-2">
                 <button v-for="c in messageSwatches" :key="c" type="button" :style="{ backgroundColor: c }"
-                  class="size-8 rounded-lg border-2 border-black/10 shadow hover:scale-110 hover:border-emerald-400 transition-all duration-200 dark:border-gray-700"
+                  class="size-8 rounded-lg bg-blue-100/30 dark:bg-blue-900/40 shadow hover:scale-110 hover:ring-2 hover:ring-primary transition-all duration-200"
                   @click="form.messageColor = c" aria-label="Pick message color" />
               </div>
             </div>
           </UFormGroup>
-          <UFormGroup label="Font (with preview)" :ui="{ label: 'text-indigo-700 dark:text-indigo-300' }">
+          <UFormGroup label="Font (with preview)" :ui="{ label: 'text-text' }">
             <USelect v-model="form.fontFamily" :options="fontOptions" option-attribute="label" value-attribute="value"
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-indigo-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
-            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300">Sample: <span
-                :style="{ fontFamily: form.fontFamily }">The quick brown fox</span></div>
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
+            <div class="mt-1 text-sm text-text-secondary">Sample: <span :style="{ fontFamily: form.fontFamily }">The
+                quick brown fox</span></div>
           </UFormGroup>
         </div>
 
-        <div
-          class="grid gap-4 sm:grid-cols-3 bg-gradient-to-r from-rose-50 via-emerald-50 to-indigo-50 p-4 rounded-xl dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-          <UFormGroup label="Title alignment" :ui="{ label: 'text-rose-700 dark:text-rose-300' }">
+        <div class="grid gap-4 sm:grid-cols-3 bg-bg-secondary/50 p-4 rounded-xl border border-border">
+          <UFormGroup label="Title alignment" :ui="{ label: 'text-text' }">
             <USelect v-model="form.titleAlign" :options="alignOptions"
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-rose-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
           </UFormGroup>
-          <UFormGroup label="Message alignment" :ui="{ label: 'text-emerald-700 dark:text-emerald-300' }">
+          <UFormGroup label="Message alignment" :ui="{ label: 'text-text' }">
             <USelect v-model="form.messageAlign" :options="alignOptions"
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-emerald-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
           </UFormGroup>
-          <UFormGroup label="Title size" :ui="{ label: 'text-rose-700 dark:text-rose-300' }">
+          <UFormGroup label="Title size" :ui="{ label: 'text-text' }">
             <USelect v-model="form.titleSize" :options="titleSizeOptions"
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-rose-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
           </UFormGroup>
         </div>
-        <div
-          class="grid gap-4 sm:grid-cols-3 bg-gradient-to-r from-emerald-50 via-emerald-100 to-emerald-200 p-4 rounded-xl dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-          <UFormGroup label="Message size" :ui="{ label: 'text-emerald-700 dark:text-emerald-300' }">
+        <div class="grid gap-4 sm:grid-cols-3 bg-bg-secondary/50 p-4 rounded-xl border border-border">
+          <UFormGroup label="Message size" :ui="{ label: 'text-text' }">
             <USelect v-model="form.messageSize" :options="messageSizeOptions"
-              class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-emerald-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+              class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
           </UFormGroup>
         </div>
 
         <div
-          class="flex items-center gap-3 bg-gradient-to-r from-indigo-50 via-rose-50 to-emerald-50 p-4 rounded-xl dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
+          class="flex items-center gap-3 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 p-4 rounded-xl border border-border backdrop-blur-sm">
           <USwitch v-model="form.isLocked" label="Require a key to open" />
           <UInput v-if="form.isLocked" v-model="form.key" placeholder="Secret key"
-            class="border border-gray-400 rounded shadow focus:ring-2 focus:ring-indigo-300 transition-all duration-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" />
+            class="p-3 bg-blue-100/30 dark:bg-blue-900/40 rounded shadow focus:ring-2 focus:ring-primary/50 transition-all duration-200 text-text" />
         </div>
 
         <div class="flex items-center justify-end gap-3 pt-2">
           <UButton type="submit" icon="i-heroicons-check-circle" :loading="saving" label="Create"
-            class="bg-gradient-to-r from-rose-400 via-indigo-400 to-emerald-400 text-white shadow-lg hover:scale-105 transition-all duration-200 dark:bg-gradient-to-r dark:from-indigo-900 dark:via-emerald-900 dark:to-rose-900" />
+            class="bg-primary text-white shadow-lg hover:scale-105 transition-all duration-200" />
         </div>
       </form>
 
@@ -163,19 +164,19 @@
 
     <div class="grid gap-4">
       <CardPreview v-if="form.title || form.message || form.recipientName" :card="previewCard"
-        class="rounded-2xl shadow-lg bg-white/80 dark:bg-gray-900/90 border border-indigo-100 dark:border-gray-700">
+        class="rounded-2xl shadow-lg bg-bg-secondary/80 border border-border">
         <template #actions>
           <UButton color="neutral" variant="ghost" :to="previewPath" icon="i-heroicons-eye" label="Preview page" />
         </template>
       </CardPreview>
       <div
-        class="rounded-2xl shadow-lg p-4 bg-white/80 dark:bg-gray-900/90 border border-indigo-100 dark:border-gray-700 flex flex-col items-center justify-center min-h-[200px]"
+        class="rounded-2xl shadow-lg p-4 bg-bg-secondary/80 border border-border flex flex-col items-center justify-center min-h-[200px]"
         :style="{ background: form.backgroundColor, transition: 'background 0.3s' }">
         <div class="w-full h-full flex items-center justify-center">
           <MediaRenderer :media-type="form.mediaType as any" :media-url="form.mediaUrl as any"
             :background-color="form.backgroundColor as any" class="w-full h-full object-contain" />
         </div>
-        <span v-if="!form.mediaUrl" class="text-gray-500 dark:text-gray-300 mt-2">No media selected</span>
+        <span v-if="!form.mediaUrl" class="text-text-secondary mt-2">No media selected</span>
       </div>
     </div>
   </section>
