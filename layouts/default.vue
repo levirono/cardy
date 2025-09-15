@@ -33,15 +33,25 @@
                 class="sm:hidden rounded-lg" aria-label="My Cards" />
 
               <!-- Theme Toggle -->
-              <ColorScheme>
-                <UButton :icon="iconTarget" color="neutral" variant="ghost" :aria-label="`Switch to ${nextMode} mode`"
-                  @click="toggleTheme" class="hidden sm:flex rounded-lg">
-                  {{ isDark ? 'Light' : 'Dark' }}
-                </UButton>
+              <!-- <UButton 
+                :icon="iconTarget" 
+                color="neutral" 
+                variant="ghost" 
+                :aria-label="`Switch to ${nextMode} mode`"
+                @click="toggleTheme" 
+                class="hidden sm:flex rounded-lg"
+              >
+                {{ isDark ? 'Light' : 'Dark' }}
+              </UButton> -->
 
-                <UButton :icon="iconTarget" color="neutral" variant="ghost" :aria-label="`Switch to ${nextMode} mode`"
-                  @click="toggleTheme" class="sm:hidden rounded-lg" />
-              </ColorScheme>
+              <UButton 
+                :icon="iconTarget" 
+                color="neutral" 
+                variant="ghost" 
+                :aria-label="`Switch to ${nextMode} mode`"
+                @click="toggleTheme" 
+                class="sm:hidden rounded-lg" 
+              />
             </nav>
           </div>
         </header>
@@ -78,5 +88,12 @@
 const app = useAppConfig()
 import { useGlobalTheme } from '~/composables/useGlobalTheme';
 
-const { isDark, nextMode, iconTarget, toggleTheme } = useGlobalTheme();
+const { isDark, nextMode, iconTarget, toggleTheme } = useGlobalTheme()
+
+// Watch for system theme changes
+const colorMode = useColorMode()
+watch(() => colorMode.preference, (newPreference) => {
+  // This ensures the UI updates when system theme changes
+  colorMode.value = newPreference
+}, { immediate: true })
 </script>
