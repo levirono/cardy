@@ -1,25 +1,37 @@
 <template>
   <div class="max-w-4xl mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-8">Request Professional Design</h1>
-    
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-      <DesignerRequestForm @submit="handleSubmit" />
+    <h1 class="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-100">
+      Request Professional Design
+    </h1>
+
+    <!-- Form container -->
+    <div
+      class="bg-gradient-to-br from-green-50 via-blue-50 to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl">
+      <DesignerRequestForm class="space-y-4" @submit="handleSubmit" />
     </div>
-    
-    <div class="mt-8 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-      <h3 class="font-semibold text-lg mb-2">How it works</h3>
-      <ul class="space-y-2">
-        <li class="flex items-start">
-          <UIcon name="i-heroicons-check-circle" class="text-green-500 mt-1 mr-2" />
-          <span>Submit your design requirements</span>
+
+    <!-- How it works section -->
+    <div
+      class="mt-10 bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800 transition duration-300 hover:scale-[1.01]">
+      <h3 class="font-semibold text-xl mb-4 text-gray-800 dark:text-gray-100 flex items-center gap-2">
+        <UIcon name="i-heroicons-light-bulb" class="text-green-500 w-6 h-6" />
+        How it works
+      </h3>
+      <ul class="space-y-3">
+        <li class="flex items-start group">
+          <UIcon name="i-heroicons-check-circle"
+            class="text-green-500 mt-1 mr-3 transition-transform group-hover:scale-110" />
+          <span class="text-gray-700 dark:text-gray-200">Submit your design requirements</span>
         </li>
-        <li class="flex items-start">
-          <UIcon name="i-heroicons-check-circle" class="text-green-500 mt-1 mr-2" />
-          <span>Our designers will review your request</span>
+        <li class="flex items-start group">
+          <UIcon name="i-heroicons-check-circle"
+            class="text-green-500 mt-1 mr-3 transition-transform group-hover:scale-110" />
+          <span class="text-gray-700 dark:text-gray-200">Our designers will review your request</span>
         </li>
-        <li class="flex items-start">
-          <UIcon name="i-heroicons-check-circle" class="text-green-500 mt-1 mr-2" />
-          <span>You'll be notified when your design is ready</span>
+        <li class="flex items-start group">
+          <UIcon name="i-heroicons-check-circle"
+            class="text-green-500 mt-1 mr-3 transition-transform group-hover:scale-110" />
+          <span class="text-gray-700 dark:text-gray-200">You'll be notified when your design is ready</span>
         </li>
       </ul>
     </div>
@@ -29,18 +41,15 @@
 <script setup>
 const handleSubmit = async (formData) => {
   try {
-    // TODO: Implement API call to submit design request
     console.log('Submitting design request:', formData);
-    
-    // Show success message
+
     useToast().add({
       title: 'Request Submitted',
       description: 'Your design request has been received. We\'ll notify you when a designer is assigned.',
       icon: 'i-heroicons-check-circle',
       color: 'green'
     });
-    
-    // Redirect to my-requests page
+
     return navigateTo('/my-requests');
   } catch (error) {
     console.error('Error submitting design request:', error);
@@ -53,3 +62,4 @@ const handleSubmit = async (formData) => {
   }
 };
 </script>
+    
