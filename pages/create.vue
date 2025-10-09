@@ -228,7 +228,7 @@
 import { computed, ref, nextTick, reactive } from 'vue'
 import ColorSwatch from '~/components/ColorSwatch.vue'
 import { useColorMode } from '#imports'
-import { useCards } from '~/composables/useCards'
+import { useCardsApi } from '~/composables/useCardsApi'
 
 const fontStyle = computed(() =>
   form.fontFamily ? { fontFamily: form.fontFamily } : undefined
@@ -236,7 +236,7 @@ const fontStyle = computed(() =>
 
 const colorMode = useColorMode()
 
-const { createCard, buildShareUrl } = useCards()
+const { createCard } = useCardsApi()
 
 const mediaOptions = [
   { label: 'Image', value: 'image' },
@@ -553,10 +553,17 @@ function onFileChange(e: Event) {
   reader.readAsDataURL(file)
 }
 
+function buildShareUrl(id: string, key?: string) {
+  const base = typeof window !== 'undefined' ? window.location.origin : ''
+  const url = new URL(`/card/${id}`, base || 'http://localhost')
+  if (key) url.searchParams.set('k', key)
+  return url.toString()
+}
+
 async function onSubmit() {
   saving.value = true
   try {
-    const card = createCard({
+    const card = await createCard({
       title: String(form.title || ''),
       recipientName: String(form.recipientName || ''),
       message: String(form.message || ''),

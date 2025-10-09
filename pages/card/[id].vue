@@ -81,7 +81,8 @@
 <script setup lang="ts">
 const route = useRoute()
 const router = useRouter()
-const { getCardById, canOpen, markOpened, buildShareUrl } = useCards()
+import { useCardsApi } from '~/composables/useCardsApi'
+const { fetchCard, updateCard } = useCardsApi()
 
 const loading = ref(true)
 const card = ref<ReturnType<typeof getCardById> extends infer T ? T : any>() as any
@@ -89,12 +90,28 @@ const keyInput = ref<string>('')
 const showShare = ref(false)
 const unlockBadge = computed(() => card.value?.unlockAt ? 'Opens ' + new Date(card.value.unlockAt).toLocaleString() : '')
 const unlockAtLocal = computed(() => card.value?.unlockAt ? new Date(card.value.unlockAt).toLocaleString() : '')
-const shareUrl = computed(() => card.value ? buildShareUrl(card.value.id, card.value.isLocked ? card.value.key : undefined) : '')
+const shareUrl = computed(() => {
+  if (!card.value) return ''
+  const base = typeof window !== 'undefined' ? window.location.origin : ''
+  const url = new URL(`/card/${card.value.id}`, base || 'http://localhost')
+  if (card.value.isLocked && card.value.key) url.searchParams.set('k', card.value.key)
+  return url.toString()
+})
 
 const canOpenNow = computed(() => {
-  if (!card.value) return { ok: false }
-  const k = (route.query.k as string | undefined) || keyInput.value || undefined
-  return canOpen(card.value, k)
+  if (!card.value) return { ok: false as const }
+  // schedule check
+  if (card.value.unlockAt) {
+    const now = Date.now()
+    const target = Date.parse(card.value.unlockAt)
+    if (isFinite(target) && now < target) return { ok: false as const, reason: 'scheduled' as const }
+  }
+  // lock check
+  if (card.value.isLocked) {
+    const k = (route.query.k as string | undefined) || keyInput.value || undefined
+    if (!card.value.key || !k || k !== card.value.key) return { ok: false as const, reason: 'locked' as const }
+  }
+  return { ok: true as const }
 })
 
 const messageStyle = computed(() => ({
@@ -127,16 +144,23 @@ const cardStyle = computed(() => ({
   '--tw-shadow-colored': '0 1px 2px 0 var(--tw-shadow-color)'
 }))
 
-onMounted(() => {
+onMounted(async () => {
   const id = route.params.id as string
-  card.value = getCardById(id)
-  loading.value = false
-  if (card.value && canOpenNow.value.ok) markOpened(card.value.id)
+  try {
+    card.value = await fetchCard(id)
+  } finally {
+    loading.value = false
+  }
+  if (card.value && canOpenNow.value.ok && !card.value.openedAt) {
+    await updateCard(card.value.id, { openedAt: new Date().toISOString() } as any)
+  }
 })
 
-function onUnlock(key: string) {
+async function onUnlock(key: string) {
   keyInput.value = key
-  if (card.value && canOpenNow.value.ok) markOpened(card.value.id)
+  if (card.value && canOpenNow.value.ok && !card.value.openedAt) {
+    await updateCard(card.value.id, { openedAt: new Date().toISOString() } as any)
+  }
 }
 
 function goBack() {

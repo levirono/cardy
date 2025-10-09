@@ -24,12 +24,16 @@
 </template>
 
 <script setup lang="ts">
-const { listCards, deleteCard } = useCards()
-const cards = ref(listCards())
+const { fetchCards, deleteCard } = useCardsApi()
+const cards = ref<any[]>([])
 
-function onDelete(id: string) {
+onMounted(async () => {
+  cards.value = await fetchCards()
+})
+
+async function onDelete(id: string) {
   if (!confirm('Delete this card?')) return
-  deleteCard(id)
-  cards.value = listCards()
+  await deleteCard(id)
+  cards.value = await fetchCards()
 }
 </script>

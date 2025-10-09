@@ -44,9 +44,14 @@
 <script setup lang="ts">
 const route = useRoute()
 const router = useRouter()
-const { getCardById, addPrintRequest } = useCards()
+import { useCardsApi } from '~/composables/useCardsApi'
+const { fetchCard, addPrintRequest } = useCardsApi()
 
-const card = ref(getCardById(route.params.id as string))
+const card = ref<any>(null)
+
+onMounted(async () => {
+  card.value = await fetchCard(route.params.id as string)
+})
 
 const recipientName = ref('')
 const addressLine = ref('')
@@ -65,7 +70,7 @@ async function onSubmit() {
   if (!card.value) return
   loading.value = true
   try {
-    const req = addPrintRequest({
+    const req = await addPrintRequest({
       cardId: card.value.id,
       recipientName: recipientName.value,
       addressLine: addressLine.value,
