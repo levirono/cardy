@@ -1,7 +1,5 @@
 <template>
-  <section class="py-8 grid gap-6 lg:grid-cols-2 bg-bgclass=" py-8 grid gap-6 lg:grid-cols-2 min-h-screen
-    bg-gradient-to-br from-rose-50 via-indigo-50 to-emerald-50 dark:bg-gradient-to-br dark:from-gray-900
-    dark:via-gray-800>
+  <section class="py-8 grid gap-6 lg:grid-cols-2 min-h-screen bg-gradient-to-br from-rose-50 via-indigo-50 to-emerald-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800">
     <UCard class="shadow-xl rounded-2xl border-2 border-border backdrop-blur-xl transition-all duration-300
     bg-gradient-to-br from-blue-200/50 via-purple-200/50 to-pink-200/50
     dark:from-blue-900/60 dark:via-purple-900/60 dark:to-pink-900/60

@@ -2,9 +2,9 @@
   <UCard :ui="{ base: 'overflow-hidden' }">
     <template #header>
       <div class="flex items-start justify-between gap-3">
-        <div>
+        <div class="min-w-0">
           <div class="font-semibold truncate" :style="titleStyle">{{ card.title }}</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400">To: {{ card.recipientName }}</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 truncate">To: {{ card.recipientName }}</div>
         </div>
         <div class="flex items-center gap-2">
           <UBadge v-if="card.isLocked" color="neutral" variant="solid" label="Locked" />
@@ -12,8 +12,13 @@
         </div>
       </div>
     </template>
-    <div class="rounded-xl p-4 ring-1 ring-inset ring-gray-200/70 dark:ring-gray-800/70" :style="cardSurfaceStyle">
-      <p class="line-clamp-3" :style="messageStyle">{{ card.message }}</p>
+    <div class="grid grid-cols-3 gap-3">
+      <div class="col-span-1 rounded-lg overflow-hidden border border-gray-200/70 dark:border-gray-800/70" :style="thumbStyle">
+        <MediaRenderer :media-type="card.mediaType as any" :media-url="card.mediaUrl" :background-color="card.backgroundColor" />
+      </div>
+      <div class="col-span-2 rounded-xl p-4 ring-1 ring-inset ring-gray-200/70 dark:ring-gray-800/70" :style="cardSurfaceStyle">
+        <p class="line-clamp-5" :style="messageStyle">{{ card.message }}</p>
+      </div>
     </div>
     <template #footer>
       <div class="flex items-center justify-between">
@@ -33,6 +38,10 @@ const cardSurfaceStyle = computed(() => ({
   backgroundColor: props.card.backgroundColor || undefined,
   color: props.card.textColor || undefined,
   fontFamily: props.card.fontFamily || undefined
+}))
+
+const thumbStyle = computed(() => ({
+  backgroundColor: props.card.backgroundColor || undefined
 }))
 
 const titleStyle = computed(() => ({
