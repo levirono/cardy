@@ -222,9 +222,22 @@
                 </transition>
               </div>
 
-              <div class="flex items-center justify-end gap-3 pt-2">
-                <UButton type="submit" icon="i-heroicons-check-circle" :loading="saving" label="Create"
-                  class="bg-primary text-white shadow-lg hover:scale-105 transition-all duration-200" />
+              <div class="space-y-2 pt-2">
+                <div class="flex items-center justify-end gap-3">
+                  <UButton type="submit" icon="i-heroicons-check-circle" :loading="saving" 
+                    :label="saving ? 'Creating...' : 'Create'"
+                    size="lg"
+                    color="success"
+                    :class="[
+                      'bg-green-600 hover:bg-green-700 text-white shadow-lg hover:scale-105 transition-all duration-200 px-8 py-3 text-lg font-semibold',
+                      saving && 'animate-pulse'
+                    ]" />
+                </div>
+                <!-- Progress Bar -->
+                <div v-if="saving" class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                  <div class="h-full bg-primary rounded-full transition-all duration-300" 
+                    :style="{ width: progressValue + '%' }"></div>
+                </div>
               </div>
             </form>
 
@@ -413,6 +426,7 @@ const form = reactive<FormData>({
 
 const saving = ref(false)
 const createdUrl = ref<string | null>(null)
+const progressValue = ref(0)
 
 const mediaHelp = computed(() => {
   switch (form.mediaType) {
@@ -653,6 +667,16 @@ function buildShareUrl(id: string, key?: string) {
 
 async function onSubmit() {
   saving.value = true
+  progressValue.value = 0
+  
+  // Simulate progress animation
+  const progressInterval = setInterval(() => {
+    if (progressValue.value < 90) {
+      progressValue.value += Math.random() * 15
+      if (progressValue.value > 90) progressValue.value = 90
+    }
+  }, 200)
+  
   try {
     const card = await createCard({
       title: String(form.title || ''),
@@ -674,9 +698,35 @@ async function onSubmit() {
       isLocked: !!form.isLocked,
       key: form.isLocked ? String(form.key || '') : undefined
     })
+    
+    // Complete the progress bar
+    progressValue.value = 100
+    clearInterval(progressInterval)
+    
     createdUrl.value = buildShareUrl(card.id, card.isLocked ? card.key : undefined)
+    
+    // Show toast notification when link is ready
+    useToast().add({
+      title: 'Card Created Successfully!',
+      description: 'Your card link is ready to share.',
+      icon: 'i-heroicons-check-circle',
+      color: 'success'
+    })
+  } catch (error) {
+    clearInterval(progressInterval)
+    progressValue.value = 0
+    useToast().add({
+      title: 'Error',
+      description: 'Failed to create card. Please try again.',
+      icon: 'i-heroicons-exclamation-circle',
+      color: 'error'
+    })
   } finally {
     saving.value = false
+    // Reset progress after a short delay
+    setTimeout(() => {
+      progressValue.value = 0
+    }, 300)
   }
 }
 </script>
