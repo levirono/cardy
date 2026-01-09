@@ -124,8 +124,7 @@ export const useAuth = () => {
 
       user.value = data.user
       // If sign-up created an active session (no email confirmation required), fetch/create profile
-      const sessionToken = (data as any).session?.access_token
-      if (sessionToken) {
+      if (data.session) {
         // Wait a bit for the trigger to create the profile, then fetch it
         await new Promise(resolve => setTimeout(resolve, 500))
         await fetchProfile()
