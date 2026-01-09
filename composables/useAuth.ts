@@ -4,7 +4,7 @@ export interface UserProfile {
   id: string
   email: string | null
   full_name: string | null
-  role: 'user' | 'designer'
+  role: 'user' | 'designer' | 'admin'
   created_at: string
   updated_at: string
 }
@@ -60,7 +60,7 @@ export const useAuth = () => {
             id: user.value.id,
             email: user.value.email || null,
             full_name: user.value.user_metadata?.full_name || null,
-            role: (user.value.user_metadata?.role as 'user' | 'designer') || 'user',
+            role: 'user',
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
           }
@@ -81,7 +81,7 @@ export const useAuth = () => {
             id: user.value.id,
             email: user.value.email || null,
             full_name: user.value.user_metadata?.full_name || null,
-            role: (user.value.user_metadata?.role as 'user' | 'designer') || 'user',
+            role: 'user',
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
           }
@@ -97,7 +97,7 @@ export const useAuth = () => {
           id: user.value.id,
           email: user.value.email || null,
           full_name: user.value.user_metadata?.full_name || null,
-          role: (user.value.user_metadata?.role as 'user' | 'designer') || 'user',
+          role: 'user',
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         }
@@ -108,15 +108,14 @@ export const useAuth = () => {
   }
 
   // Sign up
-  const signUp = async (email: string, password: string, fullName: string, role: 'user' | 'designer' = 'user') => {
+  const signUp = async (email: string, password: string, fullName: string) => {
     try {
       const { data, error } = await $supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
-            full_name: fullName,
-            role: role
+            full_name: fullName
           }
         }
       })

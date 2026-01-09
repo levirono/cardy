@@ -46,18 +46,6 @@
           <p class="mt-1 text-xs text-text-secondary">Must be at least 6 characters</p>
         </div>
 
-        <div>
-          <label class="block text-sm font-medium text-text mb-1">Account Type</label>
-          <USelect
-            v-model="role"
-            :options="roleOptions"
-            option-attribute="label"
-            value-attribute="value"
-            :disabled="loading"
-            class="w-full"
-          />
-        </div>
-
         <UButton
           type="submit"
           color="success"
@@ -93,14 +81,8 @@ const router = useRouter()
 const fullName = ref('')
 const email = ref('')
 const password = ref('')
-const role = ref<'user' | 'designer'>('user')
 const loading = ref(false)
 const toast = useToast()
-
-const roleOptions = [
-  { label: 'User (Create cards & Request designs)', value: 'user' },
-  { label: 'Designer (Fulfill design requests)', value: 'designer' }
-]
 
 const handleSignup = async () => {
   if (!fullName.value || !email.value || !password.value) {
@@ -122,7 +104,7 @@ const handleSignup = async () => {
   }
 
   loading.value = true
-  const { error } = await signUp(email.value, password.value, fullName.value, role.value)
+  const { error } = await signUp(email.value, password.value, fullName.value)
   loading.value = false
 
   if (error) {

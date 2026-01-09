@@ -42,6 +42,21 @@
                 My cards
               </span>
             </UButton>
+
+            <!-- Become a designer (only normal users, when feature is enabled) -->
+            <UButton
+              v-if="isAuthenticated && isUser && (designerEnabled ?? true)"
+              to="/designer/apply"
+              variant="ghost"
+              size="lg"
+              class="px-6 py-3 text-base font-medium transition-all duration-300 group relative overflow-hidden border border-white/30 bg-white/10 text-white hover:bg-white/20"
+            >
+              <span class="relative z-10 flex items-center gap-2">
+                <UIcon name="i-heroicons-sparkles" class="w-5 h-5" />
+                Become a designer
+              </span>
+            </UButton>
+          </div>
           </div>
         </div>
       </div>
@@ -143,14 +158,19 @@
             quote="Perfect for sending personalized thank you notes to our best clients. The design options are fantastic!"
             rating="4" />
         </div>
-      </div>
-    </div>
+      </div>    
   </section>
 </template>
 
 <script setup lang="ts">
 // Import components
-const TestimonialCard = defineAsyncComponent((): Promise<typeof import('../components/TestimonialCard.vue')> => import('../components/TestimonialCard.vue'));
+const TestimonialCard = defineAsyncComponent(
+  (): Promise<typeof import('../components/TestimonialCard.vue')> =>
+    import('../components/TestimonialCard.vue')
+)
+
+const { isAuthenticated, isUser, isDesigner } = useAuth()
+const { enabled: designerEnabled } = useDesignerSettings()
 </script>
 
 <style scoped>

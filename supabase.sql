@@ -1,14 +1,25 @@
 -- Run this in Supabase SQL editor
 
--- User profiles table (extends auth.users)
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text,
   full_name text,
-  role text check (role in ('user', 'designer')) not null default 'user',
+  role text check (role in ('user', 'designer', 'admin')) not null default 'user',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Global app settings table (for feature flags etc.)
+create table if not exists public.app_settings (
+  key text primary key,
+  value jsonb not null,
+  updated_at timestamptz not null default now()
+);
+
+-- Seed default setting: allow designer applications by default
+insert into public.app_settings (key, value)
+values ('designer_applications_enabled', jsonb_build_object('enabled', true))
+on conflict (key) do nothing;
 
 -- Cards table
 create table if not exists public.cards (
@@ -50,6 +61,17 @@ create table if not exists public.design_requests (
   updated_at timestamptz not null default now()
 );
 
+-- Designer applications table (users apply to become designers)
+create table if not exists public.designer_applications (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.profiles(id) on delete cascade,
+  status text check (status in ('pending', 'approved', 'rejected')) not null default 'pending',
+  motivation text,
+  portfolio_url text,
+  created_at timestamptz not null default now(),
+  decided_at timestamptz
+);
+
 -- Print requests table
 create table if not exists public.print_requests (
   id uuid primary key default gen_random_uuid(),
@@ -63,9 +85,11 @@ create table if not exists public.print_requests (
 
 -- RLS: enable and basic policies
 alter table public.profiles enable row level security;
+alter table public.app_settings enable row level security;
 alter table public.cards enable row level security;
 alter table public.print_requests enable row level security;
 alter table public.design_requests enable row level security;
+alter table public.designer_applications enable row level security;
 
 -- Profiles policies
 do $$ begin
@@ -77,6 +101,13 @@ do $$ begin
   end if;
   if not exists (select 1 from pg_policies where tablename = 'profiles' and policyname = 'Users can insert own profile') then
     create policy "Users can insert own profile" on public.profiles for insert to authenticated with check (auth.uid() = id);
+  end if;
+end $$;
+
+-- App settings policies (readable by everyone, writable by admin/service)
+do $$ begin
+  if not exists (select 1 from pg_policies where tablename = 'app_settings' and policyname = 'Anyone can read settings') then
+    create policy "Anyone can read settings" on public.app_settings for select using (true);
   end if;
 end $$;
 
@@ -132,12 +163,30 @@ do $$ begin
   end if;
 end $$;
 
+-- Designer applications policies
+do $$ begin
+  -- Users can view and create their own applications
+  if not exists (select 1 from pg_policies where tablename = 'designer_applications' and policyname = 'Users can view own applications') then
+    create policy "Users can view own applications" on public.designer_applications for select to authenticated using (auth.uid() = user_id);
+  end if;
+  if not exists (select 1 from pg_policies where tablename = 'designer_applications' and policyname = 'Users can create applications') then
+    create policy "Users can create applications" on public.designer_applications for insert to authenticated with check (auth.uid() = user_id);
+  end if;
+  -- Admins can view and update all applications
+  if not exists (select 1 from pg_policies where tablename = 'designer_applications' and policyname = 'Admins can manage applications') then
+    create policy "Admins can manage applications" on public.designer_applications for all to authenticated using (
+      exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+    );
+  end if;
+end $$;
+
 -- Function to automatically create profile on user signup
 create or replace function public.handle_new_user()
 returns trigger as $$
 begin
   insert into public.profiles (id, email, full_name, role)
-  values (new.id, new.email, coalesce(new.raw_user_meta_data->>'full_name', ''), coalesce(new.raw_user_meta_data->>'role', 'user'));
+  values (new.id, new.email, coalesce(new.raw_user_meta_data->>'full_name', ''), 'user')
+  on conflict (id) do nothing;
   return new;
 end;
 $$ language plpgsql security definer;
