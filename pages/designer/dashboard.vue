@@ -127,6 +127,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: 'designer'
+})
+
 const selectedTab = ref('Pending');
 const isAvailable = ref(true);
 const isLoading = ref(true);

@@ -14,117 +14,137 @@
 
             <!-- Navigation -->
             <nav class="flex items-center gap-1 sm:gap-3">
-              <!-- Create Button -->
-              <UButton to="/create" color="primary" variant="solid" icon="i-heroicons-plus-circle"
-                class="hidden sm:inline-flex rounded-lg">
-                Create
-              </UButton>
-
-              <UButton to="/create" color="primary" variant="solid" icon="i-heroicons-plus-circle"
-                class="sm:hidden rounded-lg" aria-label="Create" />
-
-              <!-- Request Design -->
-              <UButton to="/designer-request" color="neutral" variant="ghost" icon="i-heroicons-paint-brush"
-                class="hidden sm:inline-flex rounded-lg">
-                Request Design
-              </UButton>
-
-              <UButton to="/designer-request" color="neutral" variant="ghost" icon="i-heroicons-paint-brush"
-                class="sm:hidden rounded-lg" aria-label="Request Design" />
-
-              <!-- My Cards -->
-              <UButton to="/my" color="neutral" variant="ghost" icon="i-heroicons-rectangle-stack"
-                class="hidden sm:inline-flex rounded-lg">
-                My Cards
-              </UButton>
-
-              <UButton to="/my" color="neutral" variant="ghost" icon="i-heroicons-rectangle-stack"
-                class="sm:hidden rounded-lg" aria-label="My Cards" />
-
-              <!-- My Account Dropdown -->
-              <UDropdown v-model="isOpen" :popper="{ placement: 'bottom-start' }" :ui="{ width: 'w-56' }">
-                <UButton 
-                  color="neutral" 
-                  variant="ghost" 
-                  icon="i-heroicons-user-circle" 
-                  class="rounded-lg px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  @click="toggleDropdown"
-                  aria-label="My Account"
-                >
-                  <span class="hidden sm:inline text-gray-700 dark:text-gray-200">My Account</span>
+              <template v-if="isAuthenticated">
+                <!-- Create Button -->
+                <UButton to="/create" color="primary" variant="solid" icon="i-heroicons-plus-circle"
+                  class="hidden sm:inline-flex rounded-lg">
+                  Create
                 </UButton>
 
-                <template #panel>
-                  <div class="w-full">
-                    <div class="p-4 border-b border-gray-200 dark:border-gray-700">
-                      <p class="font-medium text-gray-900 dark:text-white">John Doe</p>
-                      <p class="text-xs text-gray-500 dark:text-gray-400">Designer</p>
-                    </div>
-                    <div class="p-1">
-                      <!-- Personal Section -->
-                      <div class="px-3 py-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400">Personal</div>
+                <UButton to="/create" color="primary" variant="solid" icon="i-heroicons-plus-circle"
+                  class="sm:hidden rounded-lg" aria-label="Create" />
 
-                      <UButton to="/profile" block color="neutral" variant="ghost" icon="i-heroicons-user"
-                        class="justify-start text-gray-700 dark:text-gray-300" @click="closeDropdown">
-                        My Profile
-                      </UButton>
+                <!-- Request Design (only for users, not designers) -->
+                <template v-if="isUser">
+                  <UButton to="/designer-request" color="neutral" variant="ghost" icon="i-heroicons-paint-brush"
+                    class="hidden sm:inline-flex rounded-lg">
+                    Request Design
+                  </UButton>
 
-                      <UButton to="/settings" block color="neutral" variant="ghost" icon="i-heroicons-cog-6-tooth"
-                        class="justify-start mt-1 text-gray-700 dark:text-gray-300" @click="closeDropdown">
-                        Settings
-                      </UButton>
-
-                      <!-- My Content Section -->
-                      <div class="px-3 py-1.5 mt-2 text-xs font-semibold text-gray-500 dark:text-gray-400">My Content
-                      </div>
-
-                      <UButton to="/my" block color="neutral" variant="ghost" icon="i-heroicons-rectangle-stack"
-                        class="justify-start text-gray-700 dark:text-gray-300" @click="closeDropdown">
-                        My Cards
-                      </UButton>
-
-                      <UButton to="/my-requests" block color="neutral" variant="ghost"
-                        icon="i-heroicons-clipboard-document-list"
-                        class="justify-start mt-1 text-gray-700 dark:text-gray-300" @click="closeDropdown">
-                        My Requests
-                      </UButton>
-
-                      <UButton to="/favorites" block color="neutral" variant="ghost" icon="i-heroicons-heart"
-                        class="justify-start mt-1 text-gray-700 dark:text-gray-300" @click="closeDropdown">
-                        Favorites
-                      </UButton>
-
-                      <!-- Designer Section -->
-                      <div class="px-3 py-1.5 mt-2 text-xs font-semibold text-amber-600 dark:text-amber-400">Designer
-                      </div>
-
-                      <UButton to="/designer/dashboard" block color="neutral" variant="ghost"
-                        icon="i-heroicons-wrench-screwdriver" class="justify-start" @click="closeDropdown">
-                        Designer Dashboard
-                      </UButton>
-
-                      <UButton to="/designer/earnings" block color="neutral" variant="ghost"
-                        icon="i-heroicons-banknotes" class="justify-start mt-1 text-gray-700 dark:text-gray-300"
-                        @click="closeDropdown">
-                        My Earnings
-                      </UButton>
-
-                      <!-- Account Section -->
-                      <UDivider class="my-1.5" />
-
-                      <UButton to="/help" block color="neutral" variant="ghost" icon="i-heroicons-question-mark-circle"
-                        class="justify-start text-gray-700 dark:text-gray-300" @click="closeDropdown">
-                        Help & Support
-                      </UButton>
-
-                      <UButton block color="error" variant="ghost" icon="i-heroicons-arrow-left-on-rectangle"
-                        class="justify-start mt-1 text-error-600 dark:text-error-400" @click="signOut()">
-                        Sign Out
-                      </UButton>
-                    </div>
-                  </div>
+                  <UButton to="/designer-request" color="neutral" variant="ghost" icon="i-heroicons-paint-brush"
+                    class="sm:hidden rounded-lg" aria-label="Request Design" />
                 </template>
-              </UDropdown>
+
+                <!-- My Cards -->
+                <UButton to="/my" color="neutral" variant="ghost" icon="i-heroicons-rectangle-stack"
+                  class="hidden sm:inline-flex rounded-lg">
+                  My Cards
+                </UButton>
+
+                <UButton to="/my" color="neutral" variant="ghost" icon="i-heroicons-rectangle-stack"
+                  class="sm:hidden rounded-lg" aria-label="My Cards" />
+
+                <!-- Designer Dashboard (only for designers) -->
+                <template v-if="isDesigner">
+                  <UButton to="/designer/dashboard" color="neutral" variant="ghost" icon="i-heroicons-wrench-screwdriver"
+                    class="hidden sm:inline-flex rounded-lg">
+                    Dashboard
+                  </UButton>
+
+                  <UButton to="/designer/dashboard" color="neutral" variant="ghost" icon="i-heroicons-wrench-screwdriver"
+                    class="sm:hidden rounded-lg" aria-label="Dashboard" />
+                </template>
+
+                <!-- My Account Dropdown -->
+                <UDropdown v-model="isOpen" :popper="{ placement: 'bottom-start' }" :ui="{ width: 'w-56' }">
+                  <UButton 
+                    color="neutral" 
+                    variant="ghost" 
+                    icon="i-heroicons-user-circle" 
+                    class="rounded-lg px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    @click="toggleDropdown"
+                    aria-label="My Account"
+                  >
+                    <span class="hidden sm:inline text-gray-700 dark:text-gray-200">{{ profile?.full_name || 'Account' }}</span>
+                  </UButton>
+
+                  <template #panel>
+                    <div class="w-full">
+                      <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                        <p class="font-medium text-gray-900 dark:text-white">{{ profile?.full_name || 'User' }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{ profile?.role || 'user' }}</p>
+                      </div>
+                      <div class="p-1">
+                        <!-- Personal Section -->
+                        <div class="px-3 py-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400">Personal</div>
+
+                        <UButton to="/profile" block color="neutral" variant="ghost" icon="i-heroicons-user"
+                          class="justify-start text-gray-700 dark:text-gray-300" @click="closeDropdown">
+                          My Profile
+                        </UButton>
+
+                        <UButton to="/settings" block color="neutral" variant="ghost" icon="i-heroicons-cog-6-tooth"
+                          class="justify-start mt-1 text-gray-700 dark:text-gray-300" @click="closeDropdown">
+                          Settings
+                        </UButton>
+
+                        <!-- My Content Section -->
+                        <div class="px-3 py-1.5 mt-2 text-xs font-semibold text-gray-500 dark:text-gray-400">My Content
+                        </div>
+
+                        <UButton to="/my" block color="neutral" variant="ghost" icon="i-heroicons-rectangle-stack"
+                          class="justify-start text-gray-700 dark:text-gray-300" @click="closeDropdown">
+                          My Cards
+                        </UButton>
+
+                        <template v-if="isUser">
+                          <UButton to="/my-requests" block color="neutral" variant="ghost"
+                            icon="i-heroicons-clipboard-document-list"
+                            class="justify-start mt-1 text-gray-700 dark:text-gray-300" @click="closeDropdown">
+                            My Requests
+                          </UButton>
+                        </template>
+
+                        <!-- Designer Section -->
+                        <template v-if="isDesigner">
+                          <div class="px-3 py-1.5 mt-2 text-xs font-semibold text-amber-600 dark:text-amber-400">Designer
+                          </div>
+
+                          <UButton to="/designer/dashboard" block color="neutral" variant="ghost"
+                            icon="i-heroicons-wrench-screwdriver" class="justify-start" @click="closeDropdown">
+                            Designer Dashboard
+                          </UButton>
+                        </template>
+
+                        <!-- Account Section -->
+                        <UDivider class="my-1.5" />
+
+                        <UButton to="/help" block color="neutral" variant="ghost" icon="i-heroicons-question-mark-circle"
+                          class="justify-start text-gray-700 dark:text-gray-300" @click="closeDropdown">
+                          Help & Support
+                        </UButton>
+
+                        <UButton block color="error" variant="ghost" icon="i-heroicons-arrow-left-on-rectangle"
+                          class="justify-start mt-1 text-error-600 dark:text-error-400" @click="handleSignOut">
+                          Sign Out
+                        </UButton>
+                      </div>
+                    </div>
+                  </template>
+                </UDropdown>
+              </template>
+
+              <template v-else>
+                <!-- Not authenticated - show login/signup -->
+                <UButton to="/login" color="primary" variant="solid" class="hidden sm:inline-flex rounded-lg">
+                  Sign In
+                </UButton>
+                <UButton to="/login" color="primary" variant="solid" icon="i-heroicons-arrow-right-on-rectangle"
+                  class="sm:hidden rounded-lg" aria-label="Sign In" />
+                <UButton to="/signup" color="neutral" variant="outline" class="hidden sm:inline-flex rounded-lg">
+                  Sign Up
+                </UButton>
+              </template>
 
               <!-- Theme Toggle -->
               <!-- <UButton 
@@ -173,7 +193,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { navigateTo } from '#imports';
 
 const app = useAppConfig()
@@ -181,6 +201,8 @@ import { useGlobalTheme } from '~/composables/useGlobalTheme';
 
 const { isDark, nextMode, iconTarget, toggleTheme } = useGlobalTheme()
 const colorMode = useColorMode()
+const { isAuthenticated, isDesigner, isUser, profile, signOut: authSignOut } = useAuth()
+const toast = useToast()
 
 // Dropdown state
 const isOpen = ref(false);
@@ -196,12 +218,26 @@ const toggleDropdown = () => {
 };
 
 // Sign out function
-const signOut = async () => {
+const handleSignOut = async () => {
   try {
-    // TODO: Implement actual sign out logic
+    const { error } = await authSignOut()
+    if (error) throw error
+    
+    toast.add({
+      title: 'Signed Out',
+      description: 'You have been successfully signed out',
+      color: 'success'
+    })
+    
+    closeDropdown()
     await navigateTo('/login');
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error signing out:', error);
+    toast.add({
+      title: 'Error',
+      description: error.message || 'Failed to sign out',
+      color: 'error'
+    })
   }
 };
 

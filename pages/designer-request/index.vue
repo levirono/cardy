@@ -39,6 +39,20 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: 'auth'
+})
+
+const { isUser } = useAuth()
+const router = useRouter()
+
+// Redirect if not a regular user
+onMounted(() => {
+  if (!isUser.value) {
+    router.push('/')
+  }
+})
+
 const handleSubmit = async (formData) => {
   try {
     console.log('Submitting design request:', formData);

@@ -24,16 +24,24 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'auth'
+})
+
 const { fetchCards, deleteCard } = useCardsApi()
+const { user } = useAuth()
 const cards = ref<any[]>([])
 
 onMounted(async () => {
-  cards.value = await fetchCards()
+  const allCards = await fetchCards()
+  // Filter cards to show only current user's cards
+  cards.value = allCards.filter(card => card.user_id === user.value?.id)
 })
 
 async function onDelete(id: string) {
   if (!confirm('Delete this card?')) return
   await deleteCard(id)
-  cards.value = await fetchCards()
+  const allCards = await fetchCards()
+  cards.value = allCards.filter(card => card.user_id === user.value?.id)
 }
 </script>

@@ -19,9 +19,15 @@ export function useCardsApi() {
 
   const createCard = async (payload: Omit<Card, 'id' | 'createdAt' | 'openedAt'>) => {
     try {
+      const { $supabase } = useNuxtApp()
+      const { data: { session } } = await $supabase.auth.getSession()
+      
       return await $fetch<Card>('/api/cards', {
         method: 'POST',
         body: payload as any,
+        headers: session?.access_token ? {
+          'Authorization': `Bearer ${session.access_token}`
+        } : {}
       })
     } catch (err: any) {
       throw createError({ statusCode: err?.status || 400, statusMessage: err?.data?.message || err?.message || 'Failed to create card' })

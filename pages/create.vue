@@ -285,6 +285,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'auth'
+})
+
 import { computed, ref, nextTick, reactive } from 'vue'
 import ColorSwatch from '~/components/ColorSwatch.vue'
 import { useColorMode } from '#imports'

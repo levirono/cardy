@@ -1,4 +1,4 @@
-import { getSupabaseAdmin } from '../utils/supabaseAdmin'
+import { getSupabaseAdmin } from '../utils/supabaseAdmin.ts'
 
 export default defineEventHandler(async () => {
   const supabase = getSupabaseAdmin()
