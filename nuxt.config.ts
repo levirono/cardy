@@ -29,5 +29,11 @@ export default defineNuxtConfig({
     preference: 'system',
     fallback: 'light',
     classSuffix: ''
+  },
+
+  nitro: {
+    prerender: {
+      routes: ['/manifest.json']
+    }
   }
 })
