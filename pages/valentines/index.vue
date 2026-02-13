@@ -1,5 +1,5 @@
 <template>
-  <section class="relative h-screen overflow-hidden bg-gradient-to-br from-pink-100 via-red-50 to-rose-100 dark:from-red-950 dark:via-pink-900 dark:to-rose-950">
+  <section class="relative h-screen overflow-hidden bg-gradient-to-br from-pink-100 via-red-50 to-rose-100 dark:from-red-950 dark:via-pink-900 dark:to-rose-950 fixed inset-0">
     <!-- Animated SVG Heart Drawing -->
     <svg 
       v-if="showHeartDrawing && !letterOpened" 
@@ -73,7 +73,7 @@
       <div 
         v-if="!letterOpened"
         @click="openLetter"
-        class="letter-envelope cursor-pointer transform transition-all duration-500 hover:scale-105"
+        class="letter-envelope cursor-pointer transform transition-all duration-500 hover:scale-105 scale-75 sm:scale-100"
         :class="{ 'opening': isOpening }"
       >
         <div class="envelope-wrapper relative">
@@ -81,27 +81,27 @@
           <div class="absolute inset-0 rounded-full animate-ping-slow opacity-20 bg-red-400"></div>
           
           <!-- Envelope back -->
-          <div class="envelope-back absolute w-80 h-52 bg-rose-200 dark:bg-rose-800 rounded-lg shadow-2xl"></div>
+          <div class="envelope-back absolute w-60 sm:w-80 h-40 sm:h-52 bg-rose-200 dark:bg-rose-800 rounded-lg shadow-2xl"></div>
           
           <!-- Envelope flap -->
           <div 
-            class="envelope-flap absolute w-80 origin-top transition-transform duration-1000"
+            class="envelope-flap absolute w-60 sm:w-80 origin-top transition-transform duration-1000"
             :class="{ 'flap-open': isOpening }"
           >
-            <div class="w-0 h-0 border-l-[160px] border-r-[160px] border-t-[120px] border-l-transparent border-r-transparent border-t-red-400 dark:border-t-red-700"></div>
+            <div class="w-0 h-0 border-l-[120px] sm:border-l-[160px] border-r-[120px] sm:border-r-[160px] border-t-[90px] sm:border-t-[120px] border-l-transparent border-r-transparent border-t-red-400 dark:border-t-red-700"></div>
           </div>
           
           <!-- Envelope front -->
-          <div class="envelope-front absolute w-80 h-52 bg-rose-300 dark:bg-rose-700 rounded-lg shadow-xl flex items-center justify-center border-4 border-red-400/30 dark:border-red-600/30">
+          <div class="envelope-front absolute w-60 sm:w-80 h-40 sm:h-52 bg-rose-300 dark:bg-rose-700 rounded-lg shadow-xl flex items-center justify-center border-2 sm:border-4 border-red-400/30 dark:border-red-600/30">
             <div class="text-center text-white dark:text-rose-100">
-              <p class="text-3xl font-script mb-3 animate-bounce-gentle">💌</p>
-              <p class="text-sm font-medium tracking-wide">Click to open your surprise</p>
-              <p class="text-xs mt-2 opacity-75">✨ Something special awaits ✨</p>
+              <p class="text-2xl sm:text-3xl font-script mb-2 sm:mb-3 animate-bounce-gentle">💌</p>
+              <p class="text-xs sm:text-sm font-medium tracking-wide px-2">Click to open your surprise</p>
+              <p class="text-[10px] sm:text-xs mt-1 sm:mt-2 opacity-75">✨ Something special awaits ✨</p>
             </div>
           </div>
           
           <!-- Wax seal with shine effect -->
-          <div class="wax-seal absolute top-[-20px] left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 dark:from-red-700 dark:to-red-900 rounded-full shadow-lg flex items-center justify-center text-2xl z-10 animate-rotate-slow">
+          <div class="wax-seal absolute top-[-15px] sm:top-[-20px] left-1/2 transform -translate-x-1/2 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-red-500 to-red-700 dark:from-red-700 dark:to-red-900 rounded-full shadow-lg flex items-center justify-center text-xl sm:text-2xl z-10 animate-rotate-slow">
             <div class="shine-effect"></div>
             💕
           </div>
@@ -111,25 +111,25 @@
       <!-- Letter content -->
       <div 
         v-else
-        class="letter-content bg-white dark:bg-gray-800 w-[90%] max-w-2xl h-[80vh] max-h-[600px] rounded-lg shadow-2xl p-8 md:p-12 overflow-y-auto animate-unfold relative"
+        class="letter-content bg-white dark:bg-gray-800 w-[95%] sm:w-[90%] max-w-2xl h-[85vh] sm:h-[80vh] max-h-[600px] rounded-lg shadow-2xl p-4 sm:p-8 md:p-12 overflow-y-auto animate-unfold relative"
       >
         <!-- Decorative corners -->
-        <div class="absolute top-4 left-4 text-2xl opacity-30">🌹</div>
-        <div class="absolute top-4 right-4 text-2xl opacity-30">🌹</div>
-        <div class="absolute bottom-4 left-4 text-2xl opacity-30">💐</div>
-        <div class="absolute bottom-4 right-4 text-2xl opacity-30">💐</div>
+        <div class="absolute top-2 sm:top-4 left-2 sm:left-4 text-xl sm:text-2xl opacity-30">🌹</div>
+        <div class="absolute top-2 sm:top-4 right-2 sm:right-4 text-xl sm:text-2xl opacity-30">🌹</div>
+        <div class="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 text-xl sm:text-2xl opacity-30">💐</div>
+        <div class="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 text-xl sm:text-2xl opacity-30">💐</div>
 
-        <div class="text-center mb-8">
-          <h1 class="text-4xl md:text-5xl font-script text-red-500 dark:text-red-400 mb-4 animate-fade-in">
+        <div class="text-center mb-4 sm:mb-8">
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-script text-red-500 dark:text-red-400 mb-2 sm:mb-4 animate-fade-in">
             Happy Valentine's Day! 💝
           </h1>
-          <div class="flex justify-center gap-4 text-4xl animate-pulse-slow">
+          <div class="flex justify-center gap-2 sm:gap-4 text-2xl sm:text-4xl animate-pulse-slow">
             🌹 💕 🌹
           </div>
         </div>
 
-        <div class="prose prose-lg dark:prose-invert mx-auto space-y-4 text-gray-700 dark:text-gray-200">
-          <p class="text-lg leading-relaxed animate-slide-up font-script text-2xl text-red-500 dark:text-red-400" style="animation-delay: 0.2s">
+        <div class="prose prose-sm sm:prose-lg dark:prose-invert mx-auto space-y-3 sm:space-y-4 text-gray-700 dark:text-gray-200">
+          <p class="text-base sm:text-lg leading-relaxed animate-slide-up font-script text-xl sm:text-2xl text-red-500 dark:text-red-400" style="animation-delay: 0.2s">
             {{ greeting }}
           </p>
 
@@ -150,11 +150,11 @@
           </div>
         </div>
 
-        <div class="text-center mt-8 space-x-4">
+        <div class="text-center mt-4 sm:mt-8 space-x-4">
           <UButton 
             @click="closeAndReplay" 
             variant="outline" 
-            class="px-6 py-2 hover:scale-105 transition-transform"
+            class="px-4 sm:px-6 py-2 text-sm sm:text-base hover:scale-105 transition-transform"
           >
             Close & Replay 🔄
           </UButton>
@@ -163,11 +163,11 @@
     </div>
 
     <!-- Back home button -->
-    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 flex gap-4">
-      <UButton to="/valentines/create" variant="outline" class="px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur hover:scale-105 transition-transform">
+    <div class="absolute bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 z-20 flex flex-col sm:flex-row gap-2 sm:gap-4">
+      <UButton to="/valentines/create" variant="outline" class="px-3 sm:px-4 py-2 text-sm sm:text-base bg-white/80 dark:bg-gray-800/80 backdrop-blur hover:scale-105 transition-transform">
         Write your own
       </UButton>
-      <UButton to="/" variant="outline" class="px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur hover:scale-105 transition-transform">
+      <UButton to="/" variant="outline" class="px-3 sm:px-4 py-2 text-sm sm:text-base bg-white/80 dark:bg-gray-800/80 backdrop-blur hover:scale-105 transition-transform">
         Back home
       </UButton>
     </div>
@@ -338,6 +338,14 @@ const closeAndReplay = () => {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+/* Prevent scrolling on mobile */
+body {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
 
 .font-script {
   font-family: 'Dancing Script', cursive;
@@ -531,8 +539,15 @@ const closeAndReplay = () => {
 }
 
 .envelope-wrapper {
-  width: 320px;
-  height: 208px;
+  width: 240px;
+  height: 156px;
+}
+
+@media (min-width: 640px) {
+  .envelope-wrapper {
+    width: 320px;
+    height: 208px;
+  }
 }
 
 .envelope-flap {
@@ -548,12 +563,24 @@ const closeAndReplay = () => {
 
 .envelope-front {
   z-index: 2;
-  top: 30px;
+  top: 22px;
+}
+
+@media (min-width: 640px) {
+  .envelope-front {
+    top: 30px;
+  }
 }
 
 .envelope-back {
   z-index: 1;
-  top: 30px;
+  top: 22px;
+}
+
+@media (min-width: 640px) {
+  .envelope-back {
+    top: 30px;
+  }
 }
 
 .wax-seal {
