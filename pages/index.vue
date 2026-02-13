@@ -43,6 +43,15 @@
               </span>
             </UButton>
 
+            <!-- Valentine's animation page link -->
+            <UButton to="/valentines" size="lg" icon="i-heroicons-heart" class="px-6 py-3 text-base font-medium transition-all duration-300 group relative overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <span class="relative z-10 flex items-center gap-2">
+                <UIcon name="i-heroicons-heart" class="w-5 h-5" />
+                Valentine's Animation
+              </span>
+            </UButton>
+
             <!-- Become a designer (only normal users, when feature is enabled) -->
             <UButton
               v-if="isAuthenticated && isUser && (designerEnabled ?? true)"

@@ -47,6 +47,15 @@ create table if not exists public.cards (
   created_at timestamptz not null default now()
 );
 
+-- Valentines custom messages table
+create table if not exists public.valentines (
+  id uuid primary key default gen_random_uuid(),
+  sender_name text,
+  recipient text not null,
+  message text not null,
+  created_at timestamptz not null default now()
+);
+
 -- Design requests table
 create table if not exists public.design_requests (
   id uuid primary key default gen_random_uuid(),
