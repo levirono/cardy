@@ -12,6 +12,14 @@ export default defineNuxtPlugin(() => {
       autoRefreshToken: true,
       detectSessionInUrl: true,
     },
+    global: {
+      headers: {
+        'Connection': 'keep-alive'
+      }
+    },
+    db: {
+      schema: 'public'
+    }
   })
 
   return {
@@ -20,4 +28,3 @@ export default defineNuxtPlugin(() => {
     },
   }
 })
- 

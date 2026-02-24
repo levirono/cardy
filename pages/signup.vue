@@ -104,22 +104,41 @@ const handleSignup = async () => {
   }
 
   loading.value = true
-  const { error } = await signUp(email.value, password.value, fullName.value)
-  loading.value = false
-
-  if (error) {
+  try {
+    const { error } = await signUp(email.value, password.value, fullName.value)
+    
+    if (error) {
+      console.error('Signup error:', error)
+      let errorMessage = 'Failed to create account'
+      
+      if (error.message?.includes('timeout') || error.message?.includes('504')) {
+        errorMessage = 'Request timed out. Please check your connection and try again.'
+      } else if (error.message) {
+        errorMessage = error.message
+      }
+      
+      toast.add({
+        title: 'Signup Failed',
+        description: errorMessage,
+        color: 'error'
+      })
+    } else {
+      toast.add({
+        title: 'Account Created!',
+        description: 'Please check your email to verify your account',
+        color: 'success'
+      })
+      router.push('/login')
+    }
+  } catch (err) {
+    console.error('Unexpected signup error:', err)
     toast.add({
       title: 'Signup Failed',
-      description: error.message || 'Failed to create account',
+      description: 'An unexpected error occurred. Please try again.',
       color: 'error'
     })
-  } else {
-    toast.add({
-      title: 'Account Created!',
-      description: 'Please check your email to verify your account',
-      color: 'success'
-    })
-    router.push('/login')
+  } finally {
+    loading.value = false
   }
 }
 </script>

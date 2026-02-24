@@ -132,6 +132,7 @@ export const useAuth = () => {
 
       return { data, error: null }
     } catch (error: any) {
+      console.error('Signup error:', error)
       return { data: null, error }
     }
   }
