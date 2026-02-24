@@ -67,19 +67,19 @@
             I owe you a genuine apology, and I need you to know that I mean every word of this from the bottom of my heart.
           </p>
           <p>
-            When you asked me about your hair and nails, <strong>I was wrong to dismiss you the way I did.</strong> I hid behind the idea that "it's too soon" — but that wasn't really the issue, was it? The truth is, I let my own selfishness speak louder than your feelings. And that hurt you. I see that now.
+            When you asked me about your hair and nails, <strong>I was wrong to dismiss you the way I did.</strong> I hid behind the idea that "it's too soon" but that wasn't really the issue, was it? The truth is, I let my own selfishness speak louder than your feelings. And that hurt you. I see that now.
           </p>
           <p>
             What made it worse is that I didn't let it go. I dragged that conversation on and on, when what you needed was for me to simply <strong>listen, understand, and apologize</strong>. Instead I made you feel unheard, and pushed you to a point where you felt blocking me was the only way to get peace. That breaks my heart.
           </p>
           <p>
-            You deserve to be cared for. You deserve to be heard. You deserve a partner who makes you feel valued — especially in the very first days of something new and beautiful. I failed at that, and I'm genuinely, deeply sorry.
+            You deserve to be cared for. You deserve to be heard. You deserve a partner who makes you feel valued; especially in the very first days of something new and beautiful. I failed at that, and I'm genuinely, deeply sorry.
           </p>
           <p>
-            I don't want to lose what we've just started. <strong>You matter to me</strong>, and I promise to do better — to lead with patience, with kindness, and with a heart that puts you first.
+            I don't want to lose what we've just started. <strong>You matter to me</strong>, and I promise to do better: to lead with patience, with kindness, and with a heart that puts you first even as a friend.
           </p>
           <p>
-            If you find it in your heart to give me another chance, I won't take it for granted. Not for a single day.
+            If you find it in your heart to forgive me, I won't take it for granted. Not for a single day but.
           </p>
         </div>
 
