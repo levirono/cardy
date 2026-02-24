@@ -56,7 +56,7 @@
         <span class="letter-corner corner-bl">🌊</span>
         <span class="letter-corner corner-br">💙</span>
 
-        <h1 class="letter-title">I'm So Sorry, My Love</h1>
+        <h1 class="letter-title">I'm So Sorry, Chandraa</h1>
         <div class="letter-sub">💙🌊💙</div>
         <div class="letter-divider"></div>
 
