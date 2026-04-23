@@ -1,20 +1,6 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
+export default defineNuxtRouteMiddleware(() => {
   const { isAuthenticated, loading } = useAuth()
-  
-  // Wait for auth to initialize
-  if (loading.value) {
-    await new Promise(resolve => {
-      const unwatch = watch(loading, (val) => {
-        if (!val) {
-          unwatch()
-          resolve(true)
-        }
-      })
-    })
-  }
-  
-  if (!isAuthenticated.value) {
+  if (process.client && !loading.value && !isAuthenticated.value) {
     return navigateTo('/login')
   }
 })
-

@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware(() => {
-  const { isAuthenticated, loading, isDesigner } = useAuth()
+  const { isAuthenticated, loading, isAdmin } = useAuth()
   if (process.client && !loading.value) {
     if (!isAuthenticated.value) return navigateTo('/login')
-    if (!isDesigner.value) return navigateTo('/dashboard')
+    if (!isAdmin.value) return navigateTo('/dashboard')
   }
 })

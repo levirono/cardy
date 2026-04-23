@@ -52,5 +52,6 @@ defineProps<Props>();
 </script>
 
 <style scoped>
+@reference "tailwindcss";
 /* Add any custom styles here */
 </style>

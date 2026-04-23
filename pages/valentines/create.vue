@@ -1,170 +1,99 @@
 <template>
-  <section class="min-h-screen bg-gradient-to-br from-rose-50 via-indigo-50 to-emerald-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-8">
-    <div class="max-w-xl mx-auto">
-        
-      <div class="mb-6">
-        <UButton to="/valentines" variant="outline" icon="i-heroicons-arrow-left" label="Back"/>
+  <div class="min-h-screen bg-gradient-to-br from-red-50 via-pink-50 to-rose-50 py-16 px-4 flex items-center justify-center">
+    <div class="w-full max-w-lg">
+
+      <div v-if="sent" class="text-center py-12">
+        <div class="text-7xl mb-6 animate-bounce">💝</div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">Your valentine was sent!</h2>
+        <p class="text-gray-500 mb-8">Share this link with <strong class="text-rose-500">{{ form.recipient }}</strong></p>
+        <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-4 mb-6 flex items-center gap-3">
+          <input :value="shareUrl" readonly class="flex-1 bg-transparent text-sm text-gray-700 outline-none truncate"/>
+          <button @click="copyLink" class="px-4 py-2 bg-rose-100 text-rose-600 rounded-xl text-sm font-semibold hover:bg-rose-200 transition-colors flex-shrink-0">Copy</button>
+        </div>
+        <div class="flex gap-3 justify-center">
+          <NuxtLink to="/valentines" class="px-5 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50">← Back</NuxtLink>
+          <button @click="reset" class="px-5 py-2.5 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-xl text-sm font-semibold hover:shadow-md transition-all">Send Another</button>
+        </div>
       </div>
 
-      <UCard class="mb-6">
-        <template #header>
-          <h1 class="text-3xl font-bold text-center">✨ Write your Valentine ✨</h1>
-        </template>
-        <form @submit.prevent="onSubmit" class="space-y-6">
-          <div class="grid gap-4 sm:grid-cols-2">
-            <UFormGroup label="Your name (optional)" :ui="{ label: 'text-text mb-2', container: 'mt-2' }">
-              <UInput
-                v-model="form.sender"
-                placeholder="Your name"
-                :disabled="isLoading"
-              />
-            </UFormGroup>
-            
-            <UFormGroup label="Recipient name" required :ui="{ label: 'text-text mb-2', container: 'mt-2' }">
-              <UInput
-                v-model="form.recipient"
-                placeholder="Recipient name"
-                required
-                :disabled="isLoading"
-              />
-            </UFormGroup>
+      <div v-else>
+        <div class="text-center mb-8">
+          <div class="text-5xl mb-3">💌</div>
+          <h1 class="text-2xl font-bold text-gray-900">Create a Valentine</h1>
+          <p class="text-gray-500 mt-1.5">Write a heartfelt message for someone special</p>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-lg border border-pink-100 p-8 space-y-5">
+          <div>
+            <label class="label">Your Name (optional)</label>
+            <input v-model="form.sender_name" type="text" placeholder="From: Secret Admirer" class="form-input"/>
           </div>
-  <UFormGroup label="Your Message" required :ui="{ label: 'text-text mb-2', container: 'mt-2' }">
-    <UTextarea
-      v-model="form.message"
-      placeholder="Type your heartfelt message here…"
-      :rows="8"
-      required
-      :disabled="isLoading"
-      class="w-full"
-    />
-  </UFormGroup>
+          <div>
+            <label class="label">Recipient's Name *</label>
+            <input v-model="form.recipient" type="text" placeholder="To: My Love" class="form-input" required/>
+          </div>
+          <div>
+            <label class="label">Your Message *</label>
+            <textarea v-model="form.message" rows="5" placeholder="Write your heartfelt valentine message here… 💕" class="form-input resize-none"></textarea>
+            <p class="text-xs text-gray-400 mt-1">{{ form.message.length }}/500 characters</p>
+          </div>
 
-  <div v-if="errorMessage" class="p-4 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-lg">
-    {{ errorMessage }}
+          <!-- Preview -->
+          <div v-if="form.message && form.recipient" class="rounded-2xl p-6 text-center" style="background: linear-gradient(135deg, #ffe4e6, #fce7f3)">
+            <div class="text-3xl mb-2">💕</div>
+            <p class="text-sm text-rose-400 font-medium mb-1">To {{ form.recipient }}</p>
+            <p class="text-gray-700 italic text-sm leading-relaxed">"{{ form.message }}"</p>
+            <p v-if="form.sender_name" class="text-xs text-gray-400 mt-3">— {{ form.sender_name }}</p>
+          </div>
+
+          <div v-if="error" class="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-3">{{ error }}</div>
+
+          <button @click="sendValentine" :disabled="loading || !form.recipient || !form.message"
+            class="w-full py-3 rounded-xl font-semibold text-white text-sm disabled:opacity-60 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+            style="background: linear-gradient(135deg, #f43f5e, #ec4899)">
+            <span v-if="loading">Sending…</span>
+            <span v-else>Send Valentine 💝</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <UButton
-    type="submit"
-    color="primary"
-    size="lg"
-    class="w-full"
-    :loading="isLoading"
-    :disabled="isLoading || !form.recipient || !form.message"
-  >
-    <template v-if="!isLoading">
-      💌 Create Shareable Link
-    </template>
-  </UButton>
-</form>
-  </UCard>
-
-  <UCard v-if="shareLink" class="bg-green-50 dark:bg-green-900/20 border-2 border-green-400">
-<template #header>
-  <h2 class="text-2xl font-bold text-center text-green-600 dark:text-green-400">✅ Your link is ready!</h2>
 </template>
-
-<div class="space-y-4">
-  <p class="text-text">Share this link with your Valentine:</p>
-  <div class="p-4 bg-white dark:bg-gray-800 rounded-lg border border-border break-all">
-    <a :href="shareLink" class="text-blue-600 dark:text-blue-400 underline hover:font-bold">
-      {{ shareLink }}
-    </a>
-  </div>
-
-  <div class="flex gap-2">
-    <UButton
-      @click="copyToClipboard"
-      color="primary"
-      variant="soft"
-      icon="i-heroicons-document-duplicate"
-      label="Copy link"
-    />
-    <UButton
-      :to="shareLink"
-      color="success"
-      variant="soft"
-      icon="i-heroicons-eye"
-      label="Preview"
-    />
-  </div>
-</div>
-  </UCard>
-</div>
-  </section>
-</template>
-
-<style scoped>
-:deep(input), :deep(textarea) {
-  caret-color: #ea580c !important;
-  animation: blink-cursor 1.2s infinite;
-  transition: all 0.2s ease;
-  border: 2px solid transparent !important;
-  padding: 12px 14px !important;
-}
-
-:deep(input:focus), :deep(textarea:focus) {
-  border-color: #a78bfa !important;
-  background-color: rgba(168, 85, 247, 0.05) !important;
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1) !important;
-  outline: none !important;
-}
-
-:deep(input::placeholder), :deep(textarea::placeholder) {
-  color: rgba(107, 114, 128, 0.5) !important;
-}
-
-@keyframes blink-cursor {
-  0%, 49% {
-    caret-color: #ea580c;
-  }
-  50%, 100% {
-    caret-color: transparent;
-  }
-}
-</style>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useValentinesApi } from '~/composables/useValentinesApi'
+useHead({ title: 'Create a Valentine' })
 
-interface Form {
-  sender: string
-  recipient: string
-  message: string
+const { $supabase } = useNuxtApp()
+const toast = useToast()
+const form = reactive({ sender_name: '', recipient: '', message: '' })
+const loading = ref(false)
+const sent = ref(false)
+const error = ref('')
+const createdId = ref('')
+const shareUrl = computed(() => process.client ? `${window.location.origin}/valentines/${createdId.value}` : '')
+
+const reset = () => { sent.value = false; createdId.value = ''; Object.assign(form, { sender_name: '', recipient: '', message: '' }) }
+
+const copyLink = async () => {
+  await navigator.clipboard.writeText(shareUrl.value)
+  toast.add({ title: 'Link copied!', color: 'success' })
 }
 
-const form = ref<Form>({ sender: '', recipient: '', message: '' })
-const shareLink = ref<string>('')
-const isLoading = ref(false)
-const errorMessage = ref('')
-const { createValentine } = useValentinesApi()
-
-const onSubmit = async () => {
-  errorMessage.value = ''
-  isLoading.value = true
-
-  try {
-    const data: any = await createValentine(form.value)
-    if (data && data.id) {
-      shareLink.value = `${window.location.origin}/valentines?id=${data.id}`
-    } else {
-      throw new Error('Invalid response from server')
-    }
-  } catch (err: any) {
-    console.error('Error creating valentine:', err)
-    errorMessage.value = err?.message || 'Failed to create your valentine. Please try again.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-const copyToClipboard = async () => {
-  try {
-    await navigator.clipboard.writeText(shareLink.value)
-    alert('Link copied to clipboard!')
-  } catch (err) {
-    console.error('Failed to copy:', err)
-  }
+const sendValentine = async () => {
+  if (form.message.length > 500) { error.value = 'Message too long (max 500 characters)'; return }
+  loading.value = true; error.value = ''
+  const { data, error: err } = await $supabase.from('valentines')
+    .insert({ sender_name: form.sender_name || null, recipient: form.recipient, message: form.message })
+    .select().single()
+  loading.value = false
+  if (err) { error.value = err.message; return }
+  createdId.value = data.id
+  sent.value = true
 }
 </script>
+
+<style scoped>
+@reference "tailwindcss";
+.label { @apply block text-sm font-medium text-gray-700 mb-1.5; }
+.form-input { @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-rose-400 focus:ring-2 focus:ring-rose-100 outline-none transition-all text-sm; }
+</style>

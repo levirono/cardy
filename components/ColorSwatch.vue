@@ -92,6 +92,7 @@ function selectColor(color: string) {
 </script>
 
 <style scoped>
+@reference "tailwindcss";
 .color-swatch {
   width: 100%;
 }
