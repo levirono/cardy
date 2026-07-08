@@ -80,7 +80,7 @@ const handleLogin = async () => {
     if (err.message?.toLowerCase().includes('invalid login') || err.message?.toLowerCase().includes('invalid email or password')) {
       error.value = 'Invalid email or password'
     } else if (err.message?.toLowerCase().includes('unable to connect') || err.message?.toLowerCase().includes('failed to fetch')) {
-      error.value = 'Unable to connect — check your internet connection'
+      error.value = 'Unable to connect - check your internet connection'
     } else {
       error.value = err.message ?? 'Login failed'
     }

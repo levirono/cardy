@@ -6,8 +6,8 @@
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
       <div v-for="s in statCards" :key="s.label" class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
-        <div class="text-2xl mb-3">{{ s.emoji }}</div>
-        <div class="text-3xl font-bold text-white mb-1">{{ loading ? '—' : s.value }}</div>
+        <div class="text-2xl mb-3"><Icon :name="s.icon" class="w-8 h-8" /></div>
+        <div class="text-3xl font-bold text-white mb-1">{{ loading ? '-' : s.value }}</div>
         <div class="text-sm text-gray-400">{{ s.label }}</div>
       </div>
     </div>
@@ -17,7 +17,7 @@
         <div class="space-y-2">
           <NuxtLink v-for="link in quickLinks" :key="link.to" :to="link.to"
             class="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-700 transition-colors text-gray-300 hover:text-white">
-            <span class="text-lg">{{ link.emoji }}</span>
+            <Icon :name="link.icon" class="w-5 h-5" />
             <span class="text-sm font-medium">{{ link.label }}</span>
             <svg class="w-4 h-4 ml-auto text-gray-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
           </NuxtLink>
@@ -56,17 +56,17 @@ const statsData = ref({ users: 0, cards: 0, weddings: 0, pendingApplications: 0 
 const pendingApps = ref<any[]>([])
 
 const statCards = computed(() => [
-  { emoji: '👥', label: 'Total Users', value: statsData.value.users },
-  { emoji: '🎴', label: 'Cards Created', value: statsData.value.cards },
-  { emoji: '💍', label: 'Weddings', value: statsData.value.weddings },
-  { emoji: '⏳', label: 'Pending Applications', value: statsData.value.pendingApplications },
+  { icon: 'lucide:users', label: 'Total Users', value: statsData.value.users },
+  { icon: 'lucide:card', label: 'Cards Created', value: statsData.value.cards },
+  { icon: 'lucide:heart', label: 'Weddings', value: statsData.value.weddings },
+  { icon: 'lucide:clock', label: 'Pending Applications', value: statsData.value.pendingApplications },
 ])
 
 const quickLinks = [
-  { to: '/admin/users', label: 'Manage Users & Roles', emoji: '👥' },
-  { to: '/admin/applications', label: 'Designer Applications', emoji: '🎨' },
-  { to: '/admin/requests', label: 'All Design Requests', emoji: '📋' },
-  { to: '/admin/settings', label: 'App Settings', emoji: '⚙️' },
+  { to: '/admin/users', label: 'Manage Users & Roles', icon: 'lucide:users' },
+  { to: '/admin/applications', label: 'Designer Applications', icon: 'lucide:palette' },
+  { to: '/admin/requests', label: 'All Design Requests', icon: 'lucide:clipboard-list' },
+  { to: '/admin/settings', label: 'App Settings', icon: 'lucide:settings' },
 ]
 
 const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })

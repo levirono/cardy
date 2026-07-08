@@ -30,7 +30,7 @@
               <p class="font-medium text-white truncate">{{ r.title }}</p>
               <p class="text-xs text-gray-400 truncate mt-0.5">{{ r.description }}</p>
             </td>
-            <td class="px-5 py-4 text-gray-400 hidden md:table-cell">{{ (r.user as any)?.full_name || '—' }}</td>
+            <td class="px-5 py-4 text-gray-400 hidden md:table-cell">{{ (r.user as any)?.full_name || '-' }}</td>
             <td class="px-5 py-4">
               <span class="text-xs px-2.5 py-1 rounded-full font-medium" :class="statusColor(r.status)">{{ r.status }}</span>
             </td>
@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import type { DesignRequest } from '~/types'
 definePageMeta({ layout: 'admin', middleware: 'admin' })
-useHead({ title: 'Design Requests — Admin' })
+useHead({ title: 'Design Requests - Admin' })
 
 const { fetchAllRequests } = useAdmin()
 const requests = ref<DesignRequest[]>([])

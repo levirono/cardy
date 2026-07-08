@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/color-mode',
     '@nuxt/ui',
+    '@nuxt/icon',
   ],
   css: ['~/assets/css/main.css'],
   vite: {
@@ -15,9 +16,9 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      titleTemplate: '%s — Cardy',
+      titleTemplate: '%s | Cardy',
       meta: [
-        { name: 'description', content: 'Cardy — beautiful digital cards, wedding invitations & valentines for every moment that matters.' },
+        { name: 'description', content: 'Cardy  beautiful digital cards, wedding invitations & valentines for every moment that matters.' },
         { name: 'theme-color', content: '#e754ec' },
       ],
       link: [

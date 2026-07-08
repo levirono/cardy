@@ -15,7 +15,7 @@
     </div>
 
     <div v-else-if="weddings.length === 0" class="text-center py-20">
-      <div class="text-6xl mb-4">💍</div>
+      <div class="text-6xl mb-4"><Icon name="lucide:heart" class="w-16 h-16 text-rose-300" /></div>
       <h2 class="text-xl font-bold text-gray-800 mb-2">No weddings yet</h2>
       <p class="text-gray-500 mb-8">Create your first wedding invitation page</p>
       <NuxtLink to="/weddings/create" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-xl font-semibold shadow">

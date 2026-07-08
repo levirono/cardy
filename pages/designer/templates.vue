@@ -54,7 +54,7 @@
       <div v-for="i in 3" :key="i" class="h-52 bg-gray-100 rounded-2xl animate-pulse"></div>
     </div>
     <div v-else-if="templates.length === 0" class="text-center py-16 text-gray-400">
-      <div class="text-4xl mb-3">🎨</div>
+      <div class="text-4xl mb-3"><Icon name="lucide:palette" class="w-10 h-10 text-amber-300" /></div>
       <p class="font-medium">No templates yet</p>
       <button @click="showForm = true" class="mt-4 text-sm text-amber-600 font-medium">Upload your first →</button>
     </div>
@@ -62,7 +62,7 @@
       <div v-for="t in templates" :key="t.id" class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
         <div class="h-32 bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center">
           <img v-if="t.thumbnail_url" :src="t.thumbnail_url" :alt="t.title" class="w-full h-full object-cover"/>
-          <span v-else class="text-4xl">🎨</span>
+          <Icon v-else name="lucide:palette" class="w-10 h-10 text-amber-400" />
         </div>
         <div class="p-4">
           <h3 class="font-bold text-gray-900 truncate">{{ t.title }}</h3>

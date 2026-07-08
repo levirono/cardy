@@ -16,7 +16,7 @@
     </div>
 
     <div v-else-if="cards.length === 0" class="text-center py-20">
-      <div class="text-6xl mb-4">🎴</div>
+      <div class="text-6xl mb-4"><Icon name="lucide:card" class="w-16 h-16 text-purple-300" /></div>
       <h2 class="text-xl font-bold text-gray-800 mb-2">No cards yet</h2>
       <p class="text-gray-500 mb-8">Create your first digital card to get started</p>
       <NuxtLink to="/cards/create" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-semibold shadow">
@@ -29,7 +29,7 @@
         class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all overflow-hidden">
         <div class="h-32 flex items-center justify-center text-4xl relative"
           :style="{ background: card.background_color || 'linear-gradient(135deg,#e879f9,#818cf8)' }">
-          <span>🎴</span>
+          <Icon name="lucide:card" class="w-10 h-10" />
           <div class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
             <button @click.prevent="copyLink(card.id)" class="w-7 h-7 bg-white/90 rounded-lg flex items-center justify-center hover:bg-white shadow text-gray-600 hover:text-purple-600 transition-colors">
               <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/></svg>
@@ -38,7 +38,7 @@
               <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
             </button>
           </div>
-          <div v-if="card.is_locked" class="absolute top-3 left-3 bg-white/90 rounded-full px-2 py-1 text-xs font-medium text-gray-700 flex items-center gap-1">🔒 Locked</div>
+          <div v-if="card.is_locked" class="absolute top-3 left-3 bg-white/90 rounded-full px-2 py-1 text-xs font-medium text-gray-700 flex items-center gap-1"><Icon name="lucide:lock" class="w-3 h-3" /> Locked</div>
         </div>
         <NuxtLink :to="`/cards/${card.id}`" class="block p-4">
           <h3 class="font-bold text-gray-900 truncate">{{ card.title }}</h3>

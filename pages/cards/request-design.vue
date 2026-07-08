@@ -9,7 +9,7 @@
     </div>
 
     <div v-if="submitted" class="text-center py-16">
-      <div class="text-6xl mb-4">🎉</div>
+      <div class="text-6xl mb-4"><Icon name="lucide:party-popper" class="w-16 h-16 text-green-500" /></div>
       <h2 class="text-xl font-bold text-gray-800 mb-2">Request submitted!</h2>
       <p class="text-gray-500 mb-8">A designer will review your request and reach out soon.</p>
       <div class="flex gap-3 justify-center">
@@ -25,10 +25,10 @@
       </div>
       <div>
         <label class="label">Description *</label>
-        <textarea v-model="form.description" rows="5" required placeholder="Describe the card you'd like — occasion, style, colours, any specific requests…" class="form-input resize-none"></textarea>
+        <textarea v-model="form.description" rows="5" required placeholder="Describe the card you'd like - occasion, style, colours, any specific requests…" class="form-input resize-none"></textarea>
       </div>
       <div class="bg-purple-50 rounded-xl p-4 text-sm text-purple-700">
-        💡 The more detail you provide, the better your designer can match your vision. Include the occasion, preferred colours, any text you'd like included, and the tone (funny, emotional, formal, etc.).
+        <div class="flex items-start gap-2"><Icon name="lucide:lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5" /> <span>The more detail you provide, the better your designer can match your vision. Include the occasion, preferred colours, any text you'd like included, and the tone (funny, emotional, formal, etc.).</span></div>
       </div>
       <div v-if="error" class="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-3">{{ error }}</div>
       <div class="flex gap-3">

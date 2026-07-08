@@ -75,7 +75,7 @@ export const useAuth = () => {
     }
   }
 
-  // Wraps a promise with a timeout — rejects with a clear message if exceeded
+  // Wraps a promise with a timeout - rejects with a clear message if exceeded
   const withTimeout = <T>(promise: Promise<T>, ms = 15000): Promise<T> => {
     const timeout = new Promise<never>((_, reject) =>
       setTimeout(() => reject(new Error('SERVER_TIMEOUT')), ms)
@@ -103,7 +103,7 @@ export const useAuth = () => {
       return { data, error: null }
     } catch (error: any) {
       if (error?.message === 'SERVER_TIMEOUT' || error?.message?.includes('504')) {
-        return { data: null, error: new Error('Sign up timed out. Please try again in a moment — if this keeps happening, check your Supabase database setup.') }
+        return { data: null, error: new Error('Sign up timed out. Please try again in a moment - if this keeps happening, check your Supabase database setup.') }
       }
       if (error?.message === 'Failed to fetch' || error?.name === 'TypeError') {
         return { data: null, error: new Error('Unable to connect. Check your internet connection.') }
@@ -123,7 +123,7 @@ export const useAuth = () => {
       return { data, error: null }
     } catch (error: any) {
       if (error?.message === 'SERVER_TIMEOUT' || error?.message?.includes('504')) {
-        return { data: null, error: new Error('Sign in timed out. Please try again in a moment — if this keeps happening, check your Supabase database setup.') }
+        return { data: null, error: new Error('Sign in timed out. Please try again in a moment - if this keeps happening, check your Supabase database setup.') }
       }
       if (error?.message === 'Failed to fetch' || error?.name === 'TypeError') {
         return { data: null, error: new Error('Unable to connect. Check your internet connection.') }

@@ -23,7 +23,7 @@
     <!-- Step 1: Couple Info -->
     <div v-if="step === 1" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 space-y-5">
       <div class="text-center mb-4">
-        <div class="text-4xl mb-2">💑</div>
+        <div class="text-4xl mb-2"><Icon name="lucide:heart" class="w-10 h-10 text-rose-500" /></div>
         <h2 class="text-lg font-bold text-gray-900">About the Couple</h2>
       </div>
       <div class="grid grid-cols-2 gap-4">
@@ -53,7 +53,7 @@
     <!-- Step 2: Event Details -->
     <div v-if="step === 2" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 space-y-5">
       <div class="text-center mb-4">
-        <div class="text-4xl mb-2">📅</div>
+        <div class="text-4xl mb-2"><Icon name="lucide:calendar" class="w-10 h-10 text-rose-500" /></div>
         <h2 class="text-lg font-bold text-gray-900">Event Details</h2>
       </div>
       <div>
@@ -94,7 +94,7 @@
     <!-- Step 3: Design -->
     <div v-if="step === 3" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 space-y-5">
       <div class="text-center mb-4">
-        <div class="text-4xl mb-2">🎨</div>
+        <div class="text-4xl mb-2"><Icon name="lucide:palette" class="w-10 h-10 text-rose-500" /></div>
         <h2 class="text-lg font-bold text-gray-900">Design Your Page</h2>
       </div>
       <div>
@@ -108,7 +108,7 @@
           <button v-for="t in themes" :key="t.value" @click="form.theme_preset = t.value"
             class="py-3 rounded-xl border-2 text-xs font-medium transition-all flex flex-col items-center gap-1"
             :class="form.theme_preset === t.value ? 'border-rose-400 bg-rose-50 text-rose-700' : 'border-gray-200 text-gray-600 hover:border-rose-300'">
-            <span class="text-xl">{{ t.emoji }}</span>{{ t.label }}
+            <Icon :name="t.icon" class="w-6 h-6" />{{ t.label }}
           </button>
         </div>
       </div>
@@ -133,7 +133,7 @@
     <div v-if="step === 4" class="space-y-6">
       <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
         <div class="text-center mb-6">
-          <div class="text-4xl mb-2">🔗</div>
+          <div class="text-4xl mb-2"><Icon name="lucide:link" class="w-10 h-10 text-rose-500" /></div>
           <h2 class="text-lg font-bold text-gray-900">Almost there!</h2>
           <p class="text-gray-500 text-sm mt-1">Review and publish your wedding invitation</p>
         </div>
@@ -141,13 +141,13 @@
         <!-- Summary -->
         <div class="space-y-3 text-sm mb-6">
           <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-            <span>💑</span><span class="font-medium">{{ form.couple_name_1 }} & {{ form.couple_name_2 }}</span>
+            <Icon name="lucide:heart" class="w-5 h-5 text-rose-500" /><span class="font-medium">{{ form.couple_name_1 }} & {{ form.couple_name_2 }}</span>
           </div>
           <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-            <span>📅</span><span>{{ fmtDate(form.wedding_date) }}</span>
+            <Icon name="lucide:calendar" class="w-5 h-5 text-rose-500" /><span>{{ fmtDate(form.wedding_date) }}</span>
           </div>
           <div v-if="form.venue_name" class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-            <span>📍</span><span>{{ form.venue_name }}</span>
+            <Icon name="lucide:map-pin" class="w-5 h-5 text-rose-500" /><span>{{ form.venue_name }}</span>
           </div>
         </div>
 
@@ -172,7 +172,7 @@
         <button @click="createWedding" :disabled="saving"
           class="flex-1 py-3 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-xl font-semibold text-sm disabled:opacity-60 hover:shadow-lg transition-all">
           <span v-if="saving">Creating…</span>
-          <span v-else>{{ form.is_published ? 'Publish & Get Link 🎉' : 'Save as Draft' }}</span>
+          <span v-else>{{ form.is_published ? 'Publish & Get Link' : 'Save as Draft' }}</span>
         </button>
       </div>
     </div>
@@ -195,13 +195,13 @@ const steps = [
   { label: 'The Couple' }, { label: 'Event Details' }, { label: 'Design' }, { label: 'Publish' }
 ]
 const themes = [
-  { value: 'classic', label: 'Classic', emoji: '🤍' },
-  { value: 'modern', label: 'Modern', emoji: '🖤' },
-  { value: 'rustic', label: 'Rustic', emoji: '🌾' },
-  { value: 'floral', label: 'Floral', emoji: '🌸' },
-  { value: 'tropical', label: 'Tropical', emoji: '🌺' },
-  { value: 'bohemian', label: 'Boho', emoji: '🌙' },
-  { value: 'minimal', label: 'Minimal', emoji: '⬜' },
+  { value: 'classic', label: 'Classic', icon: 'lucide:heart' },
+  { value: 'modern', label: 'Modern', icon: 'lucide:circle' },
+  { value: 'rustic', label: 'Rustic', icon: 'lucide:wheat' },
+  { value: 'floral', label: 'Floral', icon: 'lucide:flower-2' },
+  { value: 'tropical', label: 'Tropical', icon: 'lucide:sun' },
+  { value: 'bohemian', label: 'Boho', icon: 'lucide:moon' },
+  { value: 'minimal', label: 'Minimal', icon: 'lucide:square' },
 ]
 
 const form = reactive({
@@ -222,7 +222,7 @@ const createWedding = async () => {
   const { data, error: err } = await create(form)
   saving.value = false
   if (err || !data) { error.value = err?.message ?? 'Failed to create wedding'; return }
-  toast.add({ title: 'Wedding created! 🎉', description: form.is_published ? 'Your invitation is now live' : 'Saved as draft', color: 'success' })
+  toast.add({ title: 'Wedding created!', description: form.is_published ? 'Your invitation is now live' : 'Saved as draft', color: 'success' })
   router.push(`/weddings/${data.slug}`)
 }
 </script>

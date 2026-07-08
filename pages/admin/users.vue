@@ -28,7 +28,7 @@
                     {{ u.full_name?.[0] || u.email?.[0] || '?' }}
                   </div>
                   <div>
-                    <p class="font-medium text-white">{{ u.full_name || '—' }}</p>
+                    <p class="font-medium text-white">{{ u.full_name || '-' }}</p>
                     <p class="text-gray-400 text-xs">{{ u.email }}</p>
                   </div>
                 </div>
@@ -56,7 +56,7 @@
 <script setup lang="ts">
 import type { Profile } from '~/types'
 definePageMeta({ layout: 'admin', middleware: 'admin' })
-useHead({ title: 'Users — Admin' })
+useHead({ title: 'Users - Admin' })
 
 const { fetchAllUsers, updateUserRole } = useAdmin()
 const toast = useToast()

@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import type { AppSetting } from '~/types'
 definePageMeta({ layout: 'admin', middleware: 'admin' })
-useHead({ title: 'Settings — Admin' })
+useHead({ title: 'Settings - Admin' })
 
 const { fetchSettings, updateSetting } = useAdmin()
 const toast = useToast()

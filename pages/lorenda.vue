@@ -5,7 +5,7 @@
 
     <!-- continuous falling flowers, present on every stage -->
     <div class="petals-layer" aria-hidden="true">
-      <span v-for="p in petals" :key="'petal-' + p.id" class="petal" :style="p.style">{{ p.emoji }}</span>
+      <Icon v-for="p in petals" :key="'petal-' + p.id" :name="p.icon" class="petal" :style="p.style" />
     </div>
 
     <!-- ============ SCENE 1 : ENVELOPE ============ -->
@@ -47,7 +47,7 @@
             >
           </h1>
           <p class="name-reveal">
-            Happy Birthday, <span class="script-name">Lorenda</span> <span class="cake">🎂</span>
+            Happy Birthday, <span class="script-name">Lorenda</span> <span class="cake"><Icon name="lucide:cake" class="w-6 h-6" /></span>
           </p>
         </header>
 
@@ -63,12 +63,12 @@
           >
             <div class="flip-inner">
               <div class="flip-front">
-                <span class="card-emoji">💌</span>
+                <Icon name="lucide:mail" class="w-10 h-10" />
                 <span class="card-label">Open Me</span>
                 <span class="card-tap">tap</span>
               </div>
               <div class="flip-back">
-                <span class="card-back-icon">🌷</span>
+                <Icon name="lucide:flower-2" class="w-6 h-6" />
                 <p>{{ card.message }}</p>
               </div>
             </div>
@@ -83,7 +83,7 @@
               :class="{ ready: card.flipped }"
               @click="triggerSurprise"
             >
-              <span class="btn-icon">🎁</span>
+              <Icon name="lucide:gift" class="w-5 h-5" />
               <span>{{ card.flipped ? 'open your final surprise' : 'open the card first…' }}</span>
             </button>
           </transition>
@@ -91,26 +91,26 @@
           <transition name="finale-fade">
             <div v-if="surpriseTriggered" class="finale">
               <div class="balloons" aria-hidden="true">
-                <span v-for="b in balloons" :key="'b-' + b.id" class="balloon" :style="b.style">🎈</span>
+                <Icon v-for="b in balloons" :key="'b-' + b.id" name="lucide:balloon" class="balloon" :style="b.style" />
               </div>
               <div class="confetti-layer" aria-hidden="true">
                 <span v-for="c in confetti" :key="'c-' + c.id" class="confetti-piece" :style="c.style"></span>
               </div>
 
               <h2 class="finale-title">
-                <span>🎉</span> Happy Birthday, Lorenda <span>🎉</span>
+                <Icon name="lucide:party-popper" class="w-8 h-8" /> Happy Birthday, Lorenda <Icon name="lucide:party-popper" class="w-8 h-8" />
               </h2>
               <p class="signature">
                 with all my love, always 
                 <span class="script-name small">Lawi</span>
-                <span class="heart">💛</span>
+                <Icon name="lucide:heart" class="w-5 h-5 text-yellow-500" />
               </p>
             </div>
           </transition>
         </section>
 
         <footer class="page-footer">
-          <span>made with 🌷 for the most wonderful Lorenda</span>
+          <span>made with <Icon name="lucide:flower-2" class="w-4 h-4 inline" /> for the most wonderful Lorenda</span>
         </footer>
       </div>
     </transition>
@@ -152,7 +152,7 @@ function pick(arr) {
 /* ---------------------------------------------------------
    FALLING FLOWERS (continuous ambient layer)
 --------------------------------------------------------- */
-const petalEmojis = ['🌸', '🌺', '🌷', '🌼', '💮', '🏵️', '🌹']
+const petalIcons = ['lucide:flower-2', 'lucide:flower-2', 'lucide:flower-2', 'lucide:sun', 'lucide:sparkles', 'lucide:flower-2', 'lucide:flower-2']
 
 const petals = Array.from({ length: 30 }).map((_, i) => {
   const duration = rand(9, 18)
@@ -163,7 +163,7 @@ const petals = Array.from({ length: 30 }).map((_, i) => {
   const rotate = rand(-360, 360)
   return {
     id: i,
-    emoji: pick(petalEmojis),
+    icon: pick(petalIcons),
     style: {
       left: left + '%',
       fontSize: size + 'px',

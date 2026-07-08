@@ -1,28 +1,28 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900">Welcome back, {{ profile?.full_name?.split(' ')[0] || 'there' }} 👋</h1>
+      <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-2">Welcome back, {{ profile?.full_name?.split(' ')[0] || 'there' }} <Icon name="lucide:hand" class="w-6 h-6" /></h1>
       <p class="text-gray-500 mt-1">Here's what's happening with your account</p>
     </div>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
       <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-        <div class="text-2xl mb-3">🎴</div>
+        <div class="text-2xl mb-3"><Icon name="lucide:card" class="w-8 h-8 text-purple-500" /></div>
         <div class="text-3xl font-bold text-gray-900">{{ cardCount }}</div>
         <div class="text-sm text-gray-500 mt-1">Cards Created</div>
       </div>
       <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-        <div class="text-2xl mb-3">💍</div>
+        <div class="text-2xl mb-3"><Icon name="lucide:heart" class="w-8 h-8 text-rose-500" /></div>
         <div class="text-3xl font-bold text-gray-900">{{ weddingCount }}</div>
         <div class="text-sm text-gray-500 mt-1">Weddings</div>
       </div>
       <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-        <div class="text-2xl mb-3">🎨</div>
+        <div class="text-2xl mb-3"><Icon name="lucide:palette" class="w-8 h-8 text-amber-500" /></div>
         <div class="text-3xl font-bold text-gray-900">{{ requestCount }}</div>
         <div class="text-sm text-gray-500 mt-1">Design Requests</div>
       </div>
       <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-        <div class="text-2xl mb-3">💝</div>
-        <div class="text-3xl font-bold text-gray-900">—</div>
+        <div class="text-2xl mb-3"><Icon name="lucide:heart" class="w-8 h-8 text-pink-500" /></div>
+        <div class="text-3xl font-bold text-gray-900"></div>
         <div class="text-sm text-gray-500 mt-1">Valentines Sent</div>
       </div>
     </div>
@@ -31,7 +31,7 @@
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <NuxtLink v-for="a in quickActions" :key="a.label" :to="a.to"
           class="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-md transition-all">
-          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" :class="a.bg">{{ a.emoji }}</div>
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" :class="a.bg"><Icon :name="a.icon" class="w-6 h-6" /></div>
           <div>
             <p class="font-semibold text-gray-900 text-sm">{{ a.label }}</p>
             <p class="text-xs text-gray-500 mt-0.5">{{ a.desc }}</p>
@@ -49,14 +49,14 @@
           <div v-for="i in 3" :key="i" class="h-14 bg-gray-100 rounded-xl animate-pulse"></div>
         </div>
         <div v-else-if="recentCards.length === 0" class="p-10 text-center text-gray-400">
-          <div class="text-4xl mb-3">🎴</div>
+          <div class="text-4xl mb-3"><Icon name="lucide:card" class="w-12 h-12 text-gray-300" /></div>
           <p class="font-medium text-sm">No cards yet</p>
           <NuxtLink to="/cards/create" class="mt-3 inline-block text-sm text-purple-600 font-medium">Create your first →</NuxtLink>
         </div>
         <div v-else class="divide-y divide-gray-50">
           <NuxtLink v-for="card in recentCards" :key="card.id" :to="`/cards/${card.id}`"
             class="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-sm flex-shrink-0">🎴</div>
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white flex-shrink-0"><Icon name="lucide:card" class="w-5 h-5" /></div>
             <div class="flex-1 min-w-0">
               <p class="font-medium text-gray-900 text-sm truncate">{{ card.title }}</p>
               <p class="text-xs text-gray-500">To: {{ card.recipient_name }}</p>
@@ -74,14 +74,14 @@
           <div v-for="i in 2" :key="i" class="h-14 bg-gray-100 rounded-xl animate-pulse"></div>
         </div>
         <div v-else-if="recentWeddings.length === 0" class="p-10 text-center text-gray-400">
-          <div class="text-4xl mb-3">💍</div>
+          <div class="text-4xl mb-3"><Icon name="lucide:heart" class="w-12 h-12 text-gray-300" /></div>
           <p class="font-medium text-sm">No weddings yet</p>
           <NuxtLink to="/weddings/create" class="mt-3 inline-block text-sm text-pink-600 font-medium">Plan a wedding →</NuxtLink>
         </div>
         <div v-else class="divide-y divide-gray-50">
           <NuxtLink v-for="w in recentWeddings" :key="w.id" :to="`/weddings/${w.slug}`"
             class="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors">
-            <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-lg flex-shrink-0">💑</div>
+            <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-rose-500 flex-shrink-0"><Icon name="lucide:heart" class="w-5 h-5" /></div>
             <div class="flex-1 min-w-0">
               <p class="font-medium text-gray-900 text-sm truncate">{{ w.couple_name_1 }} & {{ w.couple_name_2 }}</p>
               <p class="text-xs text-gray-500">{{ fmtDate(w.wedding_date) }}</p>
@@ -112,10 +112,10 @@ const weddingCount = ref(0)
 const requestCount = ref(0)
 
 const quickActions = [
-  { emoji: '🎴', label: 'Create a Card', desc: 'Send a digital card', to: '/cards/create', bg: 'bg-purple-100' },
-  { emoji: '💍', label: 'Plan a Wedding', desc: 'Create invitations', to: '/weddings/create', bg: 'bg-rose-100' },
-  { emoji: '💝', label: 'Send Valentine', desc: 'Spread the love', to: '/valentines/create', bg: 'bg-pink-100' },
-  { emoji: '🎨', label: 'Request Design', desc: 'Get a custom card', to: '/cards/request-design', bg: 'bg-amber-100' },
+  { icon: 'lucide:card', label: 'Create a Card', desc: 'Send a digital card', to: '/cards/create', bg: 'bg-purple-100' },
+  { icon: 'lucide:heart', label: 'Plan a Wedding', desc: 'Create invitations', to: '/weddings/create', bg: 'bg-rose-100' },
+  { icon: 'lucide:heart', label: 'Send Valentine', desc: 'Spread the love', to: '/valentines/create', bg: 'bg-pink-100' },
+  { icon: 'lucide:palette', label: 'Request Design', desc: 'Get a custom card', to: '/cards/request-design', bg: 'bg-amber-100' },
 ]
 
 const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })

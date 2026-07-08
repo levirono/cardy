@@ -5,7 +5,7 @@
 
   <div v-else-if="!wedding" class="min-h-screen flex items-center justify-center text-center p-8">
     <div>
-      <div class="text-6xl mb-4">💔</div>
+      <div class="text-6xl mb-3"><Icon name="lucide:heart-off" class="w-16 h-16 text-gray-300" /></div>
       <h1 class="text-2xl font-bold text-gray-800 mb-2">Wedding not found</h1>
       <p class="text-gray-500 mb-6">This invitation may have been removed or the link is incorrect.</p>
       <NuxtLink to="/" class="px-5 py-2.5 bg-rose-500 text-white rounded-xl font-semibold text-sm">← Go Home</NuxtLink>
@@ -18,7 +18,7 @@
       :style="{ background: wedding.cover_image_url ? `url(${wedding.cover_image_url}) center/cover` : `linear-gradient(135deg, ${wedding.theme_color || '#d4a5a5'}44 0%, white 100%)` }">
       <div class="absolute inset-0 bg-black/10"></div>
       <div class="relative z-10 text-center px-6 max-w-2xl mx-auto">
-        <div class="text-5xl mb-6 animate-bounce">💍</div>
+        <div class="text-5xl mb-6 animate-bounce"><Icon name="lucide:heart" class="w-12 h-12 text-rose-500" /></div>
         <p class="text-sm font-medium tracking-[0.3em] uppercase mb-4" :style="{ color: wedding.theme_color || '#d4a5a5' }">Wedding Invitation</p>
         <h1 class="text-5xl sm:text-7xl font-bold text-gray-900 mb-3" style="font-family: 'Playfair Display', serif">
           {{ wedding.couple_name_1 }}
@@ -34,7 +34,7 @@
         <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
           <a href="#rsvp" class="px-8 py-3.5 rounded-2xl font-semibold text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-sm"
             :style="{ background: `linear-gradient(135deg, ${wedding.theme_color || '#d4a5a5'}, #ec4899)` }">
-            RSVP Now 💌
+            RSVP Now <Icon name="lucide:mail" class="w-4 h-4 inline ml-1" />
           </a>
           <a href="#details" class="px-8 py-3.5 rounded-2xl font-semibold bg-white/80 backdrop-blur text-gray-700 shadow hover:shadow-md transition-all text-sm border border-white/60">
             View Details
@@ -49,7 +49,7 @@
     <!-- 2. Welcome Message -->
     <section v-if="wedding.welcome_message" class="py-20 px-6 bg-white text-center">
       <div class="max-w-2xl mx-auto">
-        <div class="text-4xl mb-6">🌸</div>
+        <div class="text-4xl mb-6"><Icon name="lucide:flower-2" class="w-10 h-10 text-pink-400" /></div>
         <p class="text-xl text-gray-700 leading-relaxed italic" style="font-family: 'Playfair Display', serif">"{{ wedding.welcome_message }}"</p>
       </div>
     </section>
@@ -70,20 +70,20 @@
         <div class="w-16 h-0.5 mx-auto mb-12" :style="{ background: wedding.theme_color || '#d4a5a5' }"></div>
         <div class="grid sm:grid-cols-2 gap-6">
           <div v-if="wedding.ceremony_time" class="text-center p-8 rounded-2xl border border-gray-100 shadow-sm">
-            <div class="text-3xl mb-3">⛪</div>
+            <div class="text-3xl mb-3"><Icon name="lucide:church" class="w-8 h-8 text-rose-400" /></div>
             <h3 class="font-bold text-gray-900 text-lg mb-2">Ceremony</h3>
             <p class="text-gray-500 text-sm">{{ fmtDate(wedding.wedding_date) }}</p>
             <p class="font-semibold text-gray-700 mt-1">{{ fmtTime(wedding.ceremony_time) }}</p>
             <div v-if="wedding.venue_name" class="mt-3 text-sm text-gray-500">{{ wedding.venue_name }}</div>
           </div>
           <div v-if="wedding.reception_time" class="text-center p-8 rounded-2xl border border-gray-100 shadow-sm">
-            <div class="text-3xl mb-3">🥂</div>
+            <div class="text-3xl mb-3"><Icon name="lucide:champagne" class="w-8 h-8 text-amber-400" /></div>
             <h3 class="font-bold text-gray-900 text-lg mb-2">Reception</h3>
             <p class="text-gray-500 text-sm">{{ fmtDate(wedding.wedding_date) }}</p>
             <p class="font-semibold text-gray-700 mt-1">{{ fmtTime(wedding.reception_time) }}</p>
           </div>
           <div v-if="wedding.venue_address" class="sm:col-span-2 text-center p-8 rounded-2xl border border-gray-100 shadow-sm">
-            <div class="text-3xl mb-3">📍</div>
+            <div class="text-3xl mb-3"><Icon name="lucide:map-pin" class="w-8 h-8 text-rose-400" /></div>
             <h3 class="font-bold text-gray-900 text-lg mb-2">Venue</h3>
             <p class="text-gray-600">{{ wedding.venue_name }}</p>
             <p class="text-gray-500 text-sm mt-1">{{ wedding.venue_address }}</p>
@@ -95,7 +95,7 @@
             </a>
           </div>
           <div v-if="wedding.dress_code" class="sm:col-span-2 text-center p-6 rounded-2xl" :style="{ background: `${wedding.theme_color || '#d4a5a5'}11` }">
-            <span class="text-2xl">👗</span>
+            <Icon name="lucide:shirt" class="w-8 h-8 text-rose-400" />
             <p class="font-semibold text-gray-800 mt-2">Dress Code: {{ wedding.dress_code }}</p>
           </div>
         </div>
@@ -109,10 +109,10 @@
         <div class="w-16 h-0.5 mx-auto mb-10" :style="{ background: wedding.theme_color || '#d4a5a5' }"></div>
 
         <div v-if="rsvpDone" class="text-center py-10 bg-white rounded-2xl shadow-sm">
-          <div class="text-5xl mb-4">🎊</div>
+          <div class="text-5xl mb-4"><Icon name="lucide:party-popper" class="w-12 h-12 text-green-500" /></div>
           <h3 class="text-xl font-bold text-gray-900">Thank you, {{ rsvpForm.guest_name }}!</h3>
           <p class="text-gray-500 mt-2 text-sm">
-            {{ rsvpForm.attendance_status === 'attending' ? "We can't wait to celebrate with you! 🥂" :
+            {{ rsvpForm.attendance_status === 'attending' ? "We can't wait to celebrate with you!" :
                rsvpForm.attendance_status === 'maybe' ? "We hope you can make it!" : "We'll miss you!" }}
           </p>
         </div>
@@ -133,7 +133,7 @@
                 @click="rsvpForm.attendance_status = opt.value as any"
                 class="py-3 rounded-xl border-2 text-sm font-medium transition-all flex flex-col items-center gap-1"
                 :class="rsvpForm.attendance_status === opt.value ? 'border-rose-400 bg-rose-50 text-rose-700' : 'border-gray-200 text-gray-600 hover:border-rose-300'">
-                <span class="text-xl">{{ opt.emoji }}</span>{{ opt.label }}
+                <Icon :name="opt.icon" class="w-6 h-6" />{{ opt.label }}
               </button>
             </div>
           </div>
@@ -192,7 +192,7 @@
 
         <!-- Submit wish -->
         <div v-if="!wishDone" class="bg-gray-50 rounded-2xl p-6 mb-10">
-          <h3 class="font-semibold text-gray-800 mb-4">Send your wishes to the couple 💝</h3>
+          <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2">Send your wishes to the couple <Icon name="lucide:heart" class="w-5 h-5 text-pink-500" /></h3>
           <div class="space-y-3">
             <input v-model="wishForm.guest_name" type="text" placeholder="Your name" class="form-input"/>
             <textarea v-model="wishForm.wish_message" rows="3" placeholder="Write your heartfelt wishes…" class="form-input resize-none"></textarea>
@@ -200,18 +200,18 @@
               class="px-5 py-2.5 text-sm font-semibold text-white rounded-xl disabled:opacity-60 transition-all hover:shadow-md"
               :style="{ background: wedding.theme_color || '#d4a5a5' }">
               <span v-if="wishSubmitting">Sending…</span>
-              <span v-else>Send Wish ✨</span>
+              <span v-else>Send Wish <Icon name="lucide:sparkles" class="w-4 h-4 inline ml-1" /></span>
             </button>
           </div>
         </div>
         <div v-else class="bg-green-50 rounded-2xl p-6 mb-10 text-center">
-          <div class="text-3xl mb-2">✨</div>
+          <div class="text-3xl mb-2"><Icon name="lucide:sparkles" class="w-8 h-8 text-green-500" /></div>
           <p class="font-semibold text-green-800">Your wish was sent!</p>
         </div>
 
         <!-- Wishes list -->
         <div v-if="wishes.length === 0" class="text-center text-gray-400 py-8">
-          <div class="text-4xl mb-2">💌</div>
+          <div class="text-4xl mb-2"><Icon name="lucide:mail" class="w-10 h-10 text-gray-300" /></div>
           <p class="text-sm">Be the first to send wishes!</p>
         </div>
         <div v-else class="columns-1 sm:columns-2 gap-5 space-y-5">
@@ -243,7 +243,7 @@
 
     <!-- Footer -->
     <div class="py-8 text-center text-sm text-gray-400 bg-white border-t border-gray-100">
-      Made with ❤️ on <NuxtLink to="/" class="text-rose-400 font-medium hover:text-rose-600">Cardy</NuxtLink>
+      Made with <Icon name="lucide:heart" class="w-4 h-4 text-rose-400 inline" /> on <NuxtLink to="/" class="text-rose-400 font-medium hover:text-rose-600">Cardy</NuxtLink>
     </div>
   </div>
 </template>
@@ -275,9 +275,9 @@ const wishSubmitting = ref(false)
 const wishForm = reactive({ guest_name: '', wish_message: '' })
 
 const attendanceOptions = [
-  { value: 'attending', label: 'Attending', emoji: '🎉' },
-  { value: 'not_attending', label: 'Declining', emoji: '😢' },
-  { value: 'maybe', label: 'Maybe', emoji: '🤔' },
+  { value: 'attending', label: 'Attending', icon: 'lucide:party-popper' },
+  { value: 'not_attending', label: 'Declining', icon: 'lucide:frown' },
+  { value: 'maybe', label: 'Maybe', icon: 'lucide:help-circle' },
 ]
 const knowOptions = [
   { value: 'bride', label: "Bride's side" },
@@ -309,7 +309,7 @@ const submitWish = async () => {
 }
 
 useHead(() => ({
-  title: wedding.value ? `${wedding.value.couple_name_1} & ${wedding.value.couple_name_2} — Wedding` : 'Wedding Invitation',
+  title: wedding.value ? `${wedding.value.couple_name_1} & ${wedding.value.couple_name_2} - Wedding` : 'Wedding Invitation',
 }))
 
 onMounted(async () => {

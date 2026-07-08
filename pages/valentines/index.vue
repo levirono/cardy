@@ -2,12 +2,12 @@
   <div class="min-h-screen bg-gradient-to-br from-red-50 via-pink-50 to-rose-50 py-16 px-4">
     <div class="max-w-4xl mx-auto text-center">
       <div class="mb-12">
-        <div class="text-7xl mb-4 animate-bounce">💝</div>
+        <div class="text-7xl mb-4 animate-bounce"><Icon name="lucide:heart" class="w-16 h-16 text-pink-500" /></div>
         <h1 class="text-4xl font-bold text-gray-900 mb-4">Valentine's Messages</h1>
         <p class="text-gray-500 text-lg">Send beautiful animated love messages to someone special</p>
         <NuxtLink to="/valentines/create"
           class="mt-8 inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
-          💌 Create a Valentine
+          <Icon name="lucide:mail" class="w-5 h-5" /> Create a Valentine
         </NuxtLink>
       </div>
 
@@ -15,10 +15,10 @@
       <div class="relative h-64 mb-12 overflow-hidden rounded-3xl bg-gradient-to-br from-red-100 to-pink-100">
         <div v-for="h in hearts" :key="h.id" class="absolute text-2xl animate-float select-none pointer-events-none"
           :style="{ left: h.x + '%', top: h.y + '%', animationDuration: h.dur + 's', animationDelay: h.delay + 's', fontSize: h.size + 'px' }">
-          {{ h.emoji }}
+          <Icon :name="h.icon" class="w-6 h-6" />
         </div>
         <div class="absolute inset-0 flex items-center justify-center">
-          <p class="text-2xl font-bold text-rose-600" style="font-family: 'Playfair Display', serif">Love is in the air ✨</p>
+          <p class="text-2xl font-bold text-rose-600 flex items-center gap-2" style="font-family: 'Playfair Display', serif">Love is in the air <Icon name="lucide:sparkles" class="w-6 h-6" /></p>
         </div>
       </div>
 
@@ -29,7 +29,7 @@
           <div v-for="v in recentValentines" :key="v.id"
             class="bg-white rounded-2xl border border-pink-100 shadow-sm p-6 text-left hover:shadow-md transition-shadow">
             <div class="flex items-center gap-2 mb-3 text-rose-400">
-              <span class="text-xl">💌</span>
+              <Icon name="lucide:mail" class="w-6 h-6" />
             </div>
             <p class="text-gray-700 text-sm leading-relaxed line-clamp-3 italic mb-4">"{{ v.message }}"</p>
             <div class="text-xs text-gray-400">
@@ -54,7 +54,7 @@ const hearts = Array.from({ length: 20 }, (_, i) => ({
   id: i, x: Math.random() * 90, y: Math.random() * 90,
   dur: 3 + Math.random() * 4, delay: Math.random() * 3,
   size: 14 + Math.random() * 20,
-  emoji: ['❤️', '💕', '💖', '💗', '💓', '💝'][Math.floor(Math.random() * 6)],
+  icon: ['lucide:heart', 'lucide:heart-handshake', 'lucide:sparkles', 'lucide:heart', 'lucide:heart', 'lucide:heart'][Math.floor(Math.random() * 6)],
 }))
 
 onMounted(async () => {

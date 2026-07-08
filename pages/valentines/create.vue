@@ -3,7 +3,7 @@
     <div class="w-full max-w-lg">
 
       <div v-if="sent" class="text-center py-12">
-        <div class="text-7xl mb-6 animate-bounce">💝</div>
+        <div class="text-7xl mb-6 animate-bounce"><Icon name="lucide:heart" class="w-16 h-16 text-pink-500" /></div>
         <h2 class="text-2xl font-bold text-gray-900 mb-3">Your valentine was sent!</h2>
         <p class="text-gray-500 mb-8">Share this link with <strong class="text-rose-500">{{ form.recipient }}</strong></p>
         <div class="bg-white rounded-2xl border border-pink-100 shadow-sm p-4 mb-6 flex items-center gap-3">
@@ -18,7 +18,7 @@
 
       <div v-else>
         <div class="text-center mb-8">
-          <div class="text-5xl mb-3">💌</div>
+          <div class="text-5xl mb-3"><Icon name="lucide:mail" class="w-12 h-12 text-rose-500" /></div>
           <h1 class="text-2xl font-bold text-gray-900">Create a Valentine</h1>
           <p class="text-gray-500 mt-1.5">Write a heartfelt message for someone special</p>
         </div>
@@ -34,16 +34,16 @@
           </div>
           <div>
             <label class="label">Your Message *</label>
-            <textarea v-model="form.message" rows="5" placeholder="Write your heartfelt valentine message here… 💕" class="form-input resize-none"></textarea>
+            <textarea v-model="form.message" rows="5" placeholder="Write your heartfelt valentine message here…" class="form-input resize-none"></textarea>
             <p class="text-xs text-gray-400 mt-1">{{ form.message.length }}/500 characters</p>
           </div>
 
           <!-- Preview -->
           <div v-if="form.message && form.recipient" class="rounded-2xl p-6 text-center" style="background: linear-gradient(135deg, #ffe4e6, #fce7f3)">
-            <div class="text-3xl mb-2">💕</div>
+            <div class="text-3xl mb-2"><Icon name="lucide:heart" class="w-8 h-8 text-rose-400" /></div>
             <p class="text-sm text-rose-400 font-medium mb-1">To {{ form.recipient }}</p>
             <p class="text-gray-700 italic text-sm leading-relaxed">"{{ form.message }}"</p>
-            <p v-if="form.sender_name" class="text-xs text-gray-400 mt-3">— {{ form.sender_name }}</p>
+            <p v-if="form.sender_name" class="text-xs text-gray-400 mt-3">- {{ form.sender_name }}</p>
           </div>
 
           <div v-if="error" class="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-3">{{ error }}</div>
@@ -52,7 +52,7 @@
             class="w-full py-3 rounded-xl font-semibold text-white text-sm disabled:opacity-60 hover:shadow-lg hover:-translate-y-0.5 transition-all"
             style="background: linear-gradient(135deg, #f43f5e, #ec4899)">
             <span v-if="loading">Sending…</span>
-            <span v-else>Send Valentine 💝</span>
+            <span v-else>Send Valentine <Icon name="lucide:heart" class="w-4 h-4 inline ml-1" /></span>
           </button>
         </div>
       </div>

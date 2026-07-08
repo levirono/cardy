@@ -24,7 +24,7 @@
         <button @click="selectTemplate(null)"
           :class="form.template_id === null ? 'ring-2 ring-purple-500 border-purple-200' : 'border-gray-200'"
           class="p-6 rounded-2xl border-2 text-center hover:border-purple-300 transition-all">
-          <div class="text-3xl mb-2">✏️</div>
+          <div class="text-3xl mb-2"><Icon name="lucide:pencil" class="w-8 h-8 text-purple-500" /></div>
           <p class="text-sm font-medium text-gray-700">Blank</p>
           <p class="text-xs text-gray-400 mt-1">Start from scratch</p>
         </button>
@@ -34,7 +34,7 @@
           <div v-if="t.thumbnail_url" class="w-full h-20 rounded-lg mb-2 overflow-hidden">
             <img :src="t.thumbnail_url" :alt="t.title" class="w-full h-full object-cover"/>
           </div>
-          <div v-else class="w-full h-20 rounded-lg mb-2 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center text-3xl">🎨</div>
+          <div v-else class="w-full h-20 rounded-lg mb-2 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center"><Icon name="lucide:palette" class="w-8 h-8 text-purple-400" /></div>
           <p class="text-xs font-medium text-gray-700 truncate">{{ t.title }}</p>
         </button>
       </div>
@@ -63,7 +63,7 @@
           <button v-for="mt in mediaTypes" :key="mt.value" @click="form.media_type = mt.value"
             class="py-3 rounded-xl border-2 text-center text-xs font-medium transition-all"
             :class="form.media_type === mt.value ? 'border-purple-400 bg-purple-50 text-purple-700' : 'border-gray-200 text-gray-600 hover:border-purple-300'">
-            {{ mt.emoji }} {{ mt.label }}
+            <Icon :name="mt.icon" class="w-5 h-5" /> {{ mt.label }}
           </button>
         </div>
       </div>
@@ -74,7 +74,7 @@
 
       <!-- Advanced toggle -->
       <details class="bg-gray-50 rounded-xl p-4">
-        <summary class="cursor-pointer text-sm font-medium text-gray-700 select-none">⚙️ Advanced Options (optional)</summary>
+        <summary class="cursor-pointer text-sm font-medium text-gray-700 select-none flex items-center gap-2"><Icon name="lucide:settings" class="w-4 h-4" /> Advanced Options (optional)</summary>
         <div class="mt-4 space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
@@ -120,7 +120,7 @@
           </div>
           <p class="leading-relaxed whitespace-pre-wrap">{{ form.message }}</p>
           <div v-if="form.unlock_at" class="mt-6 inline-flex items-center gap-2 bg-white/30 backdrop-blur px-4 py-2 rounded-full text-xs">
-            🔒 Unlocks {{ fmtDate(form.unlock_at) }}
+            <Icon name="lucide:lock" class="w-4 h-4" /> Unlocks {{ fmtDate(form.unlock_at) }}
           </div>
         </div>
       </div>
@@ -129,7 +129,7 @@
         <button @click="saveCard" :disabled="saving"
           class="flex-1 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-semibold text-sm disabled:opacity-60 hover:shadow-md transition-all">
           <span v-if="saving">Saving…</span>
-          <span v-else>Save & Share 🎉</span>
+          <span v-else>Save & Share <Icon name="lucide:party-popper" class="w-4 h-4 inline ml-1" /></span>
         </button>
       </div>
     </div>
@@ -153,10 +153,10 @@ const saveError = ref('')
 const templates = ref<CardTemplate[]>([])
 
 const mediaTypes = [
-  { value: 'text', label: 'Text', emoji: '📝' },
-  { value: 'image', label: 'Image', emoji: '🖼️' },
-  { value: 'video', label: 'Video', emoji: '🎬' },
-  { value: 'animation', label: 'GIF', emoji: '✨' },
+  { value: 'text', label: 'Text', icon: 'lucide:file-text' },
+  { value: 'image', label: 'Image', icon: 'lucide:image' },
+  { value: 'video', label: 'Video', icon: 'lucide:video' },
+  { value: 'animation', label: 'GIF', icon: 'lucide:sparkles' },
 ]
 
 const form = reactive({

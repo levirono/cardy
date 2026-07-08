@@ -54,7 +54,7 @@
 <script setup lang="ts">
 import type { DesignerApplication } from '~/types'
 definePageMeta({ layout: 'admin', middleware: 'admin' })
-useHead({ title: 'Applications — Admin' })
+useHead({ title: 'Applications - Admin' })
 
 const { fetchAllApplications, decideApplication } = useAdmin()
 const toast = useToast()

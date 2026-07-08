@@ -1,15 +1,15 @@
-# Cardy — Full Application Rebuild Plan
+# Cardy Full Application Rebuild Plan
 
 ## Overview
 
-A complete rebuild of the Cardy application — a digital card & invitation platform. The existing codebase is a Nuxt 3 + Supabase + NuxtUI/Tailwind v4 project. We keep the tech stack but rebuild every file from scratch with clean architecture, proper role-based routing, real DB relationships, and a new **Weddings** module.
+A complete rebuild of the Cardy application a digital card & invitation platform. The existing codebase is a Nuxt 3 + Supabase + NuxtUI/Tailwind v4 project. We keep the tech stack but rebuild every file from scratch with clean architecture, proper role-based routing, real DB relationships, and a new **Weddings** module.
 
 ---
 
 ## User Review Required
 
 > [!IMPORTANT]
-> The `.env` file currently has no `SUPABASE_URL=` key prefix on line 1 — just a bare URL. This will break in production. **Please verify your `.env` file starts with `SUPABASE_URL=https://ddupvifliropjkdnodye.supabase.co`.**
+> The `.env` file currently has no `SUPABASE_URL=` key prefix on line 1 just a bare URL. This will break in production. **Please verify your `.env` file starts with `SUPABASE_URL=https://ddupvifliropjkdnodye.supabase.co`.**
 
 > [!IMPORTANT]
 > The new Weddings module requires **new tables** to be added in Supabase. A new `supabase.sql` file will be generated. You must run it in the Supabase SQL editor before the features work.
@@ -28,14 +28,14 @@ A complete rebuild of the Cardy application — a digital card & invitation plat
 > **Ratings**: Should ratings be tied to `cards` only, or also to `card_templates` (designer-made templates)? I'll implement ratings on **card_templates** (what designers upload) and show real average ratings on the landing page.
 
 > [!NOTE]
-> **Valentine's**: Keep as-is (existing animated valentine page + simple message creation). No structural changes needed — just clean up the UI.
+> **Valentine's**: Keep as-is (existing animated valentine page + simple message creation). No structural changes needed just clean up the UI.
 
 > [!NOTE]
 > **Card Create simplification**: The current create page is ~33KB of complex options. We simplify to: pick a template (or blank), set recipient + message, optional time-lock + secret key, then save. Advanced styling is optional/collapsed.
 
 ---
 
-## Architecture — 3 User Roles
+## Architecture 3 User Roles
 
 | Role | Access |
 |---|---|
@@ -46,40 +46,40 @@ A complete rebuild of the Cardy application — a digital card & invitation plat
 ### Route Structure
 
 ```
-/                          — Public landing page (rich info, real stats, real ratings)
-/login                     — Auth
-/signup                    — Auth
-/forgot-password           — Auth
+/                          Public landing page (rich info, real stats, real ratings)
+/login                     Auth
+/signup                    Auth
+/forgot-password           Auth
 
-/cards/[id]               — Public card viewer (no auth needed)
-/valentines               — Public valentine animation viewer
-/valentines/create        — Create a valentine message (no auth)
+/cards/[id]               Public card viewer (no auth needed)
+/valentines               Public valentine animation viewer
+/valentines/create        Create a valentine message (no auth)
 
-/dashboard                — User home (auth required → redirects by role)
-/cards/create             — Simplified card creator
-/cards/my                 — My cards list
-/cards/my-requests        — My design requests
-/profile                  — Profile settings
+/dashboard                User home (auth required → redirects by role)
+/cards/create             Simplified card creator
+/cards/my                 My cards list
+/cards/my-requests        My design requests
+/profile                  Profile settings
 
-/designer                 — Designer dashboard
-/designer/requests        — Manage design requests  
-/designer/templates       — Upload & manage templates
+/designer                 Designer dashboard
+/designer/requests        Manage design requests  
+/designer/templates       Upload & manage templates
 
-/admin                    — Admin dashboard
-/admin/users              — User management (view, change roles)
-/admin/applications       — Designer applications
-/admin/requests           — All design requests
-/admin/settings           — App settings (feature flags)
+/admin                    Admin dashboard
+/admin/users              User management (view, change roles)
+/admin/applications       Designer applications
+/admin/requests           All design requests
+/admin/settings           App settings (feature flags)
 
-/weddings/create          — Create a wedding event (auth required)
-/weddings/my              — My weddings list
-/weddings/[slug]          — Public wedding invitation page (open via shared link)
-/weddings/[slug]/rsvp     — RSVP form (public)
+/weddings/create          Create a wedding event (auth required)
+/weddings/my              My weddings list
+/weddings/[slug]          Public wedding invitation page (open via shared link)
+/weddings/[slug]/rsvp     RSVP form (public)
 ```
 
 ---
 
-## Database — New Tables (additions to existing schema)
+## Database - New Tables (additions to existing schema)
 
 ### `card_templates`
 Designer-uploaded card templates that users can pick from during card creation.
@@ -223,7 +223,7 @@ Central type definitions for all entities: `Profile`, `Card`, `CardTemplate`, `C
 
 ---
 
-### Pages — Auth
+### Pages - Auth
 
 #### [MODIFY] `pages/login.vue`
 - Fix: use `layout: 'auth'` 
@@ -238,7 +238,7 @@ Central type definitions for all entities: `Profile`, `Card`, `CardTemplate`, `C
 
 ---
 
-### Pages — User
+### Pages - User
 
 #### [NEW] `pages/index.vue` (full rebuild)
 - Hero section with real stats (card count from DB)
@@ -261,7 +261,7 @@ Central type definitions for all entities: `Profile`, `Card`, `CardTemplate`, `C
 - Delete/share actions
 
 #### [NEW] `pages/cards/[id].vue` (was `pages/card/[id].vue`)
-- Public card viewer — lock check, key prompt, reveal animation
+- Public card viewer - lock check, key prompt, reveal animation
 
 #### [NEW] `pages/cards/my-requests.vue` (was `pages/my-requests.vue`)
 - User's design requests list with status
@@ -271,7 +271,7 @@ Central type definitions for all entities: `Profile`, `Card`, `CardTemplate`, `C
 
 ---
 
-### Pages — Valentines
+### Pages - Valentines
 
 #### [MODIFY] `pages/valentines/index.vue`
 - Keep animated experience, clean up UI
@@ -281,15 +281,15 @@ Central type definitions for all entities: `Profile`, `Card`, `CardTemplate`, `C
 
 ---
 
-### Pages — Weddings (NEW MODULE)
+### Pages - Weddings (NEW MODULE)
 
 #### [NEW] `pages/weddings/create.vue`
 Multi-step wizard:
-1. **Couple Info** — Names, relationship, short story
-2. **Event Details** — Wedding date, ceremony time, reception time, venue name + address
-3. **Design** — Cover image upload, theme color/preset, welcome message, dress code
-4. **Settings** — Publish toggle, additional info
-5. **Preview & Generate Link** — Shows the public URL `/weddings/[slug]`
+1. **Couple Info** - Names, relationship, short story
+2. **Event Details** - Wedding date, ceremony time, reception time, venue name + address
+3. **Design** - Cover image upload, theme color/preset, welcome message, dress code
+4. **Settings** - Publish toggle, additional info
+5. **Preview & Generate Link** - Shows the public URL `/weddings/[slug]`
 
 #### [NEW] `pages/weddings/my.vue`
 - List of user's wedding events with stats (RSVP count, wish count)
@@ -297,12 +297,12 @@ Multi-step wizard:
 
 #### [NEW] `pages/weddings/[slug].vue`  
 Public wedding invitation page (uses `wedding` layout). Procedural experience:
-1. **Landing / Cover** — Full-screen cover with couple names, wedding date, venue
-2. **Our Story** — Couple's story text
-3. **Event Details** — Date, time, venue map link, dress code
-4. **RSVP Section** — Button to open RSVP form (or inline)
-5. **Wishes Wall** — Show approved wishes from guests
-6. **Wishing Section** — Form to submit a wish
+1. **Landing / Cover** - Full-screen cover with couple names, wedding date, venue
+2. **Our Story** - Couple's story text
+3. **Event Details** - Date, time, venue map link, dress code
+4. **RSVP Section** - Button to open RSVP form (or inline)
+5. **Wishes Wall** - Show approved wishes from guests
+6. **Wishing Section** - Form to submit a wish
 
 #### [NEW] `pages/weddings/[slug]/rsvp.vue`
 Dedicated RSVP page:
@@ -317,7 +317,7 @@ Dedicated RSVP page:
 
 ---
 
-### Pages — Designer
+### Pages - Designer
 
 #### [MODIFY] `pages/designer/dashboard.vue`  
 - Real stats from DB
@@ -334,7 +334,7 @@ Dedicated RSVP page:
 
 ---
 
-### Pages — Admin
+### Pages - Admin
 
 #### [NEW] `pages/admin/index.vue`
 - Dashboard: total users, cards, weddings, pending applications

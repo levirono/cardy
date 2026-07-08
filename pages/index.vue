@@ -16,7 +16,7 @@
           <span class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">feel magical</span>
         </h1>
         <p class="mt-6 text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          From heartfelt birthday cards to stunning wedding invitations — Cardy helps you craft unforgettable digital experiences for the people you love.
+          From heartfelt birthday cards to stunning wedding invitations - Cardy helps you craft unforgettable digital experiences for the people you love.
         </p>
         <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <NuxtLink to="/cards/create" class="group px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-2xl font-semibold text-base shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200 flex items-center gap-2">
@@ -50,7 +50,7 @@
           <div v-for="feature in features" :key="feature.title"
             class="group p-8 rounded-3xl border border-gray-100 hover:border-purple-200 hover:shadow-xl transition-all duration-300 bg-gradient-to-br hover:from-purple-50/50 hover:to-pink-50/50">
             <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 duration-300" :class="feature.bgColor">
-              <span class="text-2xl">{{ feature.emoji }}</span>
+              <Icon :name="feature.icon" class="w-7 h-7" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">{{ feature.title }}</h3>
             <p class="text-gray-500 leading-relaxed">{{ feature.desc }}</p>
@@ -64,9 +64,9 @@
       <div class="max-w-6xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <div class="inline-flex items-center gap-2 text-sm font-medium text-pink-700 bg-pink-100 rounded-full px-4 py-2 mb-6">💍 New Feature</div>
+            <div class="inline-flex items-center gap-2 text-sm font-medium text-pink-700 bg-pink-100 rounded-full px-4 py-2 mb-6"><Icon name="lucide:sparkles" class="w-4 h-4" /> New Feature</div>
             <h2 class="text-4xl font-bold text-gray-900 leading-tight mb-6">Wedding invitations that wow your guests</h2>
-            <p class="text-gray-600 text-lg leading-relaxed mb-8">Create beautiful digital wedding invitations with RSVP management, guest wishes, your love story, venue details, and a unique shareable link — all in minutes.</p>
+            <p class="text-gray-600 text-lg leading-relaxed mb-8">Create beautiful digital wedding invitations with RSVP management, guest wishes, your love story, venue details, and a unique shareable link - all in minutes.</p>
             <ul class="space-y-4 mb-10">
               <li v-for="item in weddingFeatures" :key="item" class="flex items-center gap-3 text-gray-700">
                 <div class="w-6 h-6 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0">
@@ -83,19 +83,19 @@
           <div class="relative">
             <div class="bg-white rounded-3xl shadow-2xl p-8 border border-pink-100">
               <div class="text-center mb-6">
-                <div class="text-4xl mb-3">💑</div>
+                <div class="text-4xl mb-3"><Icon name="lucide:heart" class="w-10 h-10 text-pink-500" /></div>
                 <h3 class="text-2xl font-bold text-gray-900 font-serif">Sarah & Michael</h3>
                 <p class="text-pink-500 font-medium mt-1">Are getting married!</p>
               </div>
               <div class="space-y-3 text-sm text-gray-600">
                 <div class="flex items-center gap-3 p-3 bg-pink-50 rounded-xl">
-                  <span>📅</span><span>Saturday, June 14, 2026</span>
+                  <Icon name="lucide:calendar" class="w-5 h-5 text-pink-600" /><span>Saturday, June 14, 2026</span>
                 </div>
                 <div class="flex items-center gap-3 p-3 bg-pink-50 rounded-xl">
-                  <span>📍</span><span>The Grand Ballroom, Nairobi</span>
+                  <Icon name="lucide:map-pin" class="w-5 h-5 text-pink-600" /><span>The Grand Ballroom, Nairobi</span>
                 </div>
                 <div class="flex items-center gap-3 p-3 bg-pink-50 rounded-xl">
-                  <span>🕑</span><span>Ceremony at 2:00 PM · Reception at 5:00 PM</span>
+                  <Icon name="lucide:clock" class="w-5 h-5 text-pink-600" /><span>Ceremony at 2:00 PM · Reception at 5:00 PM</span>
                 </div>
               </div>
               <div class="mt-6 flex gap-3">
@@ -103,7 +103,7 @@
                 <button class="flex-1 py-3 border border-pink-200 text-pink-600 rounded-xl text-sm font-semibold">Send a Wish</button>
               </div>
             </div>
-            <div class="absolute -bottom-4 -right-4 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">✓ 47 RSVPs</div>
+            <div class="absolute -bottom-4 -right-4 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1"><Icon name="lucide:check" class="w-3 h-3" /> 47 RSVPs</div>
           </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
         <div class="grid md:grid-cols-3 gap-8 relative">
           <div class="hidden md:block absolute top-10 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-purple-200 to-pink-200"></div>
           <div v-for="(step, i) in steps" :key="step.title" class="text-center relative">
-            <div class="w-20 h-20 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 shadow-md" :class="step.bg">{{ step.emoji }}</div>
+            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md" :class="step.bg"><Icon :name="step.icon" class="w-8 h-8" /></div>
             <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 w-6 h-6 rounded-full bg-white border-2 border-purple-300 flex items-center justify-center text-xs font-bold text-purple-600">{{ i+1 }}</div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">{{ step.title }}</h3>
             <p class="text-gray-500 leading-relaxed">{{ step.desc }}</p>
@@ -175,7 +175,7 @@
 </template>
 
 <script setup lang="ts">
-useHead({ title: 'Cardy — Beautiful Cards & Wedding Invitations' })
+useHead({ title: 'Cardy - Beautiful Cards & Wedding Invitations' })
 
 const stats = [
   { value: '10K+', label: 'Cards Created' },
@@ -184,12 +184,12 @@ const stats = [
 ]
 
 const features = [
-  { emoji: '🎴', title: 'Digital Cards', desc: 'Create stunning digital cards with images, videos, time-locks, and secret keys. Share instantly via a unique link.', bgColor: 'bg-purple-100' },
-  { emoji: '💍', title: 'Wedding Invitations', desc: 'Full wedding invitation suite with RSVP management, wishes wall, venue details, and shareable guest links.', bgColor: 'bg-rose-100' },
-  { emoji: '💝', title: 'Valentines', desc: 'Send animated valentine messages with beautiful effects to that special someone in your life.', bgColor: 'bg-pink-100' },
-  { emoji: '🎨', title: 'Designer Templates', desc: 'Choose from professionally designed templates created by our community of talented designers.', bgColor: 'bg-indigo-100' },
-  { emoji: '🔒', title: 'Time-Lock & Secret Key', desc: 'Schedule when your card can be opened, or add a secret key only the recipient knows.', bgColor: 'bg-teal-100' },
-  { emoji: '✉️', title: 'Custom Design Requests', desc: 'Need something unique? Request a custom design from one of our professional designers.', bgColor: 'bg-amber-100' },
+  { icon: 'lucide:card', title: 'Digital Cards', desc: 'Create stunning digital cards with images, videos, time-locks, and secret keys. Share instantly via a unique link.', bgColor: 'bg-purple-100' },
+  { icon: 'lucide:heart', title: 'Wedding Invitations', desc: 'Full wedding invitation suite with RSVP management, wishes wall, venue details, and shareable guest links.', bgColor: 'bg-rose-100' },
+  { icon: 'lucide:heart', title: 'Valentines', desc: 'Send animated valentine messages with beautiful effects to that special someone in your life.', bgColor: 'bg-pink-100' },
+  { icon: 'lucide:palette', title: 'Designer Templates', desc: 'Choose from professionally designed templates created by our community of talented designers.', bgColor: 'bg-indigo-100' },
+  { icon: 'lucide:lock', title: 'Time-Lock & Secret Key', desc: 'Schedule when your card can be opened, or add a secret key only the recipient knows.', bgColor: 'bg-teal-100' },
+  { icon: 'lucide:mail', title: 'Custom Design Requests', desc: 'Need something unique? Request a custom design from one of our professional designers.', bgColor: 'bg-amber-100' },
 ]
 
 const weddingFeatures = [
@@ -202,13 +202,13 @@ const weddingFeatures = [
 ]
 
 const steps = [
-  { emoji: '✏️', title: 'Create', desc: 'Pick a template or start from scratch. Add your message, photos, and personal touches.', bg: 'bg-purple-100' },
-  { emoji: '🔗', title: 'Share', desc: 'Get a unique link to share with anyone — by email, WhatsApp, or social media.', bg: 'bg-pink-100' },
-  { emoji: '🎉', title: 'Celebrate', desc: 'They open it, RSVP, leave wishes, and you track it all from your dashboard.', bg: 'bg-indigo-100' },
+  { icon: 'lucide:pencil', title: 'Create', desc: 'Pick a template or start from scratch. Add your message, photos, and personal touches.', bg: 'bg-purple-100' },
+  { icon: 'lucide:link', title: 'Share', desc: 'Get a unique link to share with anyone - by email, WhatsApp, or social media.', bg: 'bg-pink-100' },
+  { icon: 'lucide:party-popper', title: 'Celebrate', desc: 'They open it, RSVP, leave wishes, and you track it all from your dashboard.', bg: 'bg-indigo-100' },
 ]
 
 const testimonials = [
-  { name: 'Sarah Wanjiku', role: 'Happy Customer', initials: 'SW', rating: 5, quote: 'Used Cardy for our wedding invitations — over 80 RSVPs tracked automatically. The platform is absolutely stunning!' },
+  { name: 'Sarah Wanjiku', role: 'Happy Customer', initials: 'SW', rating: 5, quote: 'Used Cardy for our wedding invitations - over 80 RSVPs tracked automatically. The platform is absolutely stunning!' },
   { name: 'Michael Okonkwo', role: 'Frequent User', initials: 'MO', rating: 5, quote: 'The time-lock feature blew my wife away on our anniversary. She had no idea what was inside until the exact right moment.' },
   { name: 'Amara Nduka', role: 'Small Business Owner', initials: 'AN', rating: 5, quote: 'We send personalized thank-you cards to clients using Cardy. The designer templates are world-class.' },
 ]
