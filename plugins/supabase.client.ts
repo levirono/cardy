@@ -65,17 +65,13 @@ export default defineNuxtPlugin(() => {
       autoRefreshToken: true,
       detectSessionInUrl: true,
     },
-    global: {
-      headers: {
-        'Connection': 'keep-alive'
-      }
-    },
+    // global: {
+    //   headers: {
+    //     'Connection': 'keep-alive'
+    //   }
+    // },
     db: {
       schema: 'public'
-    },
-    // Add timeout configuration to prevent 504 errors
-    realtime: {
-      timeout: 30000
     }
   })
 

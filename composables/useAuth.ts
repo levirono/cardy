@@ -75,40 +75,59 @@ export const useAuth = () => {
     }
   }
 
+  // Wraps a promise with a timeout — rejects with a clear message if exceeded
+  const withTimeout = <T>(promise: Promise<T>, ms = 15000): Promise<T> => {
+    const timeout = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('SERVER_TIMEOUT')), ms)
+    )
+    return Promise.race([promise, timeout])
+  }
+
   const signUp = async (email: string, password: string, fullName: string) => {
     try {
-      // Add timeout and retry logic for signup
-      const signupPromise = $supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { full_name: fullName } },
-      })
-      
-      // Add timeout wrapper
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Signup request timed out')), 25000)
+      if (!$supabase) {
+        return { data: null, error: new Error('Supabase client not available') }
+      }
+
+      const { data, error } = await withTimeout(
+        $supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { full_name: fullName } },
+        })
       )
-      
-      const { data, error } = await Promise.race([signupPromise, timeoutPromise]) as any
-      
+
       if (error) throw error
       user.value = data.user
       if (data.session) await fetchProfile()
       return { data, error: null }
     } catch (error: any) {
-      console.error('Signup error:', error)
+      if (error?.message === 'SERVER_TIMEOUT' || error?.message?.includes('504')) {
+        return { data: null, error: new Error('Sign up timed out. Please try again in a moment — if this keeps happening, check your Supabase database setup.') }
+      }
+      if (error?.message === 'Failed to fetch' || error?.name === 'TypeError') {
+        return { data: null, error: new Error('Unable to connect. Check your internet connection.') }
+      }
       return { data: null, error }
     }
   }
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { data, error } = await $supabase.auth.signInWithPassword({ email, password })
+      const { data, error } = await withTimeout(
+        $supabase.auth.signInWithPassword({ email, password })
+      )
       if (error) throw error
       user.value = data.user
       await fetchProfile()
       return { data, error: null }
     } catch (error: any) {
+      if (error?.message === 'SERVER_TIMEOUT' || error?.message?.includes('504')) {
+        return { data: null, error: new Error('Sign in timed out. Please try again in a moment — if this keeps happening, check your Supabase database setup.') }
+      }
+      if (error?.message === 'Failed to fetch' || error?.name === 'TypeError') {
+        return { data: null, error: new Error('Unable to connect. Check your internet connection.') }
+      }
       return { data: null, error }
     }
   }

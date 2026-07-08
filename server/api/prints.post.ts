@@ -1,8 +1,8 @@
-import { getSupabaseAdmin } from '../utils/supabaseAdmin'
+import { getSupabaseClient } from '../utils/supabase'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const supabase = getSupabaseAdmin()
+  const supabase = getSupabaseClient()
   const { data, error } = await supabase.from('print_requests').insert({
     card_id: body.cardId,
     recipient_name: body.recipientName,

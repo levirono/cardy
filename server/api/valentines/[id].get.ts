@@ -1,8 +1,8 @@
-import { getSupabaseAdmin } from '../../utils/supabaseAdmin'
+import { getSupabaseClient } from '../../utils/supabase'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
-  const supabase = getSupabaseAdmin()
+  const supabase = getSupabaseClient()
   const { data, error } = await supabase
     .from('valentines')
     .select('*')

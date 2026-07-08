@@ -1,7 +1,7 @@
-import { getSupabaseAdmin } from '../../utils/supabaseAdmin'
+import { getSupabaseClient } from '../../utils/supabase'
 
 export default defineEventHandler(async () => {
-  const supabase = getSupabaseAdmin()
+  const supabase = getSupabaseClient()
 
   const { data, error } = await supabase
     .from('app_settings')

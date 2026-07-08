@@ -1,5 +1,4 @@
-import { getSupabaseAdmin } from '../utils/supabaseAdmin'
-import { getUserFromRequest } from '../utils/getUser'
+import { getSupabaseClient, getUserFromRequest } from '../utils/supabase'
 
 export default defineEventHandler(async (event) => {
   const user = await getUserFromRequest(event)
@@ -13,7 +12,7 @@ export default defineEventHandler(async (event) => {
     portfolioUrl?: string
   }>(event)
 
-  const supabase = getSupabaseAdmin()
+  const supabase = getSupabaseClient()
 
   const { data, error } = await supabase
     .from('designer_applications')

@@ -1,5 +1,4 @@
-import { getSupabaseAdmin } from '../utils/supabaseAdmin.ts'
-import { getUserFromRequest } from '../utils/getUser.ts'
+import { getSupabaseClient, getUserFromRequest } from '../utils/supabase'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -9,7 +8,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
   
-  const supabase = getSupabaseAdmin()
+  const supabase = getSupabaseClient()
   const { data, error } = await supabase.from('cards').insert({
     user_id: user.id,
     title: body.title,

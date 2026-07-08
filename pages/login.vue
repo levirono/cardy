@@ -9,7 +9,7 @@
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1.5">Email address</label>
         <input v-model="email" type="email" placeholder="you@example.com" autocomplete="email"
-          class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-sm"
+          class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-sm"
           :class="{ 'border-red-300': error }" />
       </div>
       <div>
@@ -19,7 +19,7 @@
         </div>
         <div class="relative">
           <input v-model="password" :type="showPw ? 'text' : 'password'" placeholder="••••••••" autocomplete="current-password"
-            class="w-full px-4 py-3 pr-11 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-sm"
+            class="w-full px-4 py-3 pr-11 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all text-sm"
             :class="{ 'border-red-300': error }" />
           <button type="button" @click="showPw = !showPw" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
             <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -77,7 +77,13 @@ const handleLogin = async () => {
   const { error: err } = await signIn(email.value, password.value)
   loading.value = false
   if (err) {
-    error.value = err.message?.includes('Invalid login') ? 'Invalid email or password' : (err.message ?? 'Login failed')
+    if (err.message?.toLowerCase().includes('invalid login') || err.message?.toLowerCase().includes('invalid email or password')) {
+      error.value = 'Invalid email or password'
+    } else if (err.message?.toLowerCase().includes('unable to connect') || err.message?.toLowerCase().includes('failed to fetch')) {
+      error.value = 'Unable to connect — check your internet connection'
+    } else {
+      error.value = err.message ?? 'Login failed'
+    }
   } else {
     toast.add({ title: 'Welcome back!', color: 'success' })
     router.push(defaultRedirect.value)

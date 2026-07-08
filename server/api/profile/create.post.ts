@@ -1,7 +1,4 @@
-// import { getSupabaseAdmin } from '../../utils/supabaseAdmin.ts'
-// import { getUserFromRequest } from '../../utils/getUser.ts'
-import { getSupabaseAdmin } from '../../utils/supabaseAdmin'
-import { getUserFromRequest } from '../../utils/getUser'
+import { getSupabaseClient, getUserFromRequest } from '../../utils/supabase'
 
 export default defineEventHandler(async (event) => {
   const user = await getUserFromRequest(event)
@@ -10,7 +7,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
   
-  const supabase = getSupabaseAdmin()
+  const supabase = getSupabaseClient()
   
   // Check if profile already exists
   const { data: existing } = await supabase
